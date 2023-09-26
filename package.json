@@ -1,0 +1,30 @@
+{
+	"name": "quickstart-nextjs",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build": "next build",
+		"dev": "next dev",
+		"lint": "next lint",
+		"start": "next start"
+	},
+	"dependencies": {
+		"next": "latest",
+		"react": "latest",
+		"react-dom": "latest"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
+		"autoprefixer": "latest",
+		"eslint": "latest",
+		"eslint-config-next": "latest",
+		"eslint-config-prettier": "latest",
+		"postcss": "latest",
+		"prettier": "latest",
+		"prettier-plugin-tailwindcss": "latest",
+		"tailwindcss": "latest",
+		"typescript": "latest"
+	}
+}
