@@ -10,27 +10,29 @@ declare global {
 }
 
 export function ThemeToggle() {
-	const sunRef = useRef<HTMLButtonElement>(0);
-	const moonRef = useRef<HTMLButtonElement>(0);
+	const sunRef = useRef<HTMLButtonElement>(null);
+	const moonRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
 			<button
 				ref={sunRef}
+				aria-label="Switch to Light Mode"
 				className="nav-button hidden dark:flex"
 				onClick={() => {
 					window.__setTheme("light");
-					moonRef.current.focus();
+					moonRef?.current?.focus();
 				}}
 			>
 				<IconSun />
 			</button>
 			<button
 				ref={moonRef}
+				aria-label="Switch to Dark Mode"
 				className="nav-button dark:hidden"
 				onClick={() => {
 					window.__setTheme("dark");
-					sunRef.current.focus();
+					sunRef?.current?.focus();
 				}}
 			>
 				<IconMoon />

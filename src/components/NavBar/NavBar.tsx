@@ -7,6 +7,7 @@ export function NavBar() {
 			<ThemeToggle />
 			<a
 				className="nav-button"
+				aria-label="GitHub repository"
 				href="https://github.com/castdin/reactic-tac-toe"
 				target="_blank"
 			>
