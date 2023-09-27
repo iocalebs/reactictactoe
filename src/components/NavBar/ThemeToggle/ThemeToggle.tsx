@@ -10,16 +10,19 @@ declare global {
 
 export function ThemeToggle() {
 	return (
-		<div className="mx-2 flex justify-end">
-			<button className="dark:hidden" onClick={() => window.__setTheme("dark")}>
+		<>
+			<button
+				className="nav-button dark:hidden"
+				onClick={() => window.__setTheme("dark")}
+			>
 				<IconMoon />
 			</button>
 			<button
-				className="hidden dark:inline-block"
+				className="nav-button hidden dark:flex"
 				onClick={() => window.__setTheme("light")}
 			>
 				<IconSun />
 			</button>
-		</div>
+		</>
 	);
 }

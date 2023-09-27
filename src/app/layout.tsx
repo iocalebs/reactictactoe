@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { TopBar } from "@/components/TopBar";
+import { NavBar } from "@/components/NavBar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -83,7 +83,7 @@ export default function RootLayout({
 					"bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200"
 				}
 			>
-				<TopBar />
+				<NavBar />
 				{children}
 			</body>
 		</html>

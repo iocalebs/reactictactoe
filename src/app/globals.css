@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.nav-button {
+		@apply flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10;
+	}
+}
