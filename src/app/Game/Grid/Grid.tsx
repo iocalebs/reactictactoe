@@ -1,25 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import { useImmer } from "use-immer";
-
 import { Turn } from "@/types";
 import { Square } from "./Square";
+import { useImmer } from "use-immer";
 
 export function Grid() {
-	const [whoseTurn, setWhoseTurn] = useState<Turn>("x");
-	const [gridState, setGridState] = useImmer(Array<Turn>(9).fill(""));
+	const [gameState, setGameState] = useImmer({
+		gameOver: false,
+		whoseTurn: "x" as Turn,
+		squares: Array<Turn>(9).fill(""),
+	});
+	const { gameOver, whoseTurn, squares } = gameState;
 
 	function handleChoice(index: number) {
-		return function (player: Turn) {
-			setGridState((draft) => {
-				draft[index] = player;
-			});
-			if (player == "x") {
-				setWhoseTurn("o");
-			} else {
-				setWhoseTurn("x");
+		return function () {
+			if (gameOver) {
+				return;
 			}
+			setGameState((draft) => {
+				draft.squares[index] = whoseTurn;
+				draft.gameOver = isGameOver(draft.squares, whoseTurn);
+				draft.whoseTurn = draft.gameOver ? "" : whoseTurn === "x" ? "o" : "x";
+			});
 		};
 	}
 
@@ -28,14 +30,14 @@ export function Grid() {
 			<div className="mb-40 grid grid-cols-3">
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[0]}
+					squareState={squares[0]}
 					onChoice={handleChoice(0)}
 					borderBottom
 					borderRight
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[1]}
+					squareState={squares[1]}
 					onChoice={handleChoice(1)}
 					borderBottom
 					borderRight
@@ -43,14 +45,14 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[2]}
+					squareState={squares[2]}
 					onChoice={handleChoice(2)}
 					borderBottom
 					borderLeft
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[3]}
+					squareState={squares[3]}
 					onChoice={handleChoice(3)}
 					borderTop
 					borderRight
@@ -58,7 +60,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[4]}
+					squareState={squares[4]}
 					onChoice={handleChoice(4)}
 					borderTop
 					borderRight
@@ -67,7 +69,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[5]}
+					squareState={squares[5]}
 					onChoice={handleChoice(5)}
 					borderTop
 					borderBottom
@@ -75,14 +77,14 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[6]}
+					squareState={squares[6]}
 					onChoice={handleChoice(6)}
 					borderTop
 					borderRight
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[7]}
+					squareState={squares[7]}
 					onChoice={handleChoice(7)}
 					borderTop
 					borderRight
@@ -90,7 +92,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					squareState={gridState[8]}
+					squareState={squares[8]}
 					onChoice={handleChoice(8)}
 					borderTop
 					borderLeft
@@ -98,4 +100,26 @@ export function Grid() {
 			</div>
 		</div>
 	);
+}
+
+const winStates = [
+	// horizontal lins
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+
+	// vertical lines
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+
+	// diagonal lines
+	[0, 4, 8],
+	[2, 4, 6],
+];
+
+function isGameOver(squares: Turn[], whoseTurn: Turn): boolean {
+	return winStates.some((winState) => {
+		return winState.every((i) => squares[i] == whoseTurn);
+	});
 }

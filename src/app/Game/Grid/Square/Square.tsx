@@ -50,14 +50,19 @@ export function Square({
 			case "o":
 				return o;
 			case "":
-				return (
-					<div
-						aria-hidden
-						className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10 dark:group-hover:opacity-20"
-					>
-						{whoseTurn == "x" ? x : o}
-					</div>
-				);
+				// if game  over
+				if (whoseTurn === "") {
+					return "";
+				} else {
+					return (
+						<div
+							aria-hidden
+							className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10 dark:group-hover:opacity-20"
+						>
+							{whoseTurn == "x" ? x : o}
+						</div>
+					);
+				}
 		}
 	}
 
@@ -83,7 +88,7 @@ export function Square({
 			<div
 				className={
 					"flex h-full w-full items-center justify-center " +
-					(squareState == "" ? "cursor-pointer" : "")
+					(squareState == "" && whoseTurn !== "" ? "cursor-pointer" : "")
 				}
 			>
 				{contents()}

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Grid } from "./Grid";
+import { Game } from "./Game";
 
 export default function Home() {
-	return <Grid />;
+	return <Game />;
 }
