@@ -28,14 +28,14 @@ export function Grid() {
 			<div className="mb-40 grid grid-cols-3">
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[0]}
+					squareState={gridState[0]}
 					onChoice={handleChoice(0)}
 					borderBottom
 					borderRight
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[1]}
+					squareState={gridState[1]}
 					onChoice={handleChoice(1)}
 					borderBottom
 					borderRight
@@ -43,14 +43,14 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[2]}
+					squareState={gridState[2]}
 					onChoice={handleChoice(2)}
 					borderBottom
 					borderLeft
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[3]}
+					squareState={gridState[3]}
 					onChoice={handleChoice(3)}
 					borderTop
 					borderRight
@@ -58,7 +58,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[4]}
+					squareState={gridState[4]}
 					onChoice={handleChoice(4)}
 					borderTop
 					borderRight
@@ -67,7 +67,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[5]}
+					squareState={gridState[5]}
 					onChoice={handleChoice(5)}
 					borderTop
 					borderBottom
@@ -75,14 +75,14 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[6]}
+					squareState={gridState[6]}
 					onChoice={handleChoice(6)}
 					borderTop
 					borderRight
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[7]}
+					squareState={gridState[7]}
 					onChoice={handleChoice(7)}
 					borderTop
 					borderRight
@@ -90,7 +90,7 @@ export function Grid() {
 				/>
 				<Square
 					whoseTurn={whoseTurn}
-					state={gridState[8]}
+					squareState={gridState[8]}
 					onChoice={handleChoice(8)}
 					borderTop
 					borderLeft

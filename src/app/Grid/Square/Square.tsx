@@ -27,7 +27,7 @@ const o = (
 
 export interface SquareProps {
 	whoseTurn: Turn;
-	state: Turn;
+	squareState: Turn;
 	borderTop?: boolean;
 	borderRight?: boolean;
 	borderLeft?: boolean;
@@ -36,7 +36,7 @@ export interface SquareProps {
 }
 export function Square({
 	whoseTurn,
-	state,
+	squareState,
 	borderTop,
 	borderRight,
 	borderLeft,
@@ -44,18 +44,25 @@ export function Square({
 	onChoice,
 }: SquareProps) {
 	function contents() {
-		switch (state) {
+		switch (squareState) {
 			case "x":
 				return x;
 			case "o":
 				return o;
 			case "":
-				return null;
+				return (
+					<div
+						aria-hidden
+						className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10"
+					>
+						{whoseTurn == "x" ? x : o}
+					</div>
+				);
 		}
 	}
 
 	function handleClick() {
-		if (state !== "") {
+		if (squareState !== "") {
 			return;
 		}
 		onChoice(whoseTurn);
@@ -70,7 +77,9 @@ export function Square({
 	return (
 		<div
 			className={
-				borders + " flex h-40 w-40 items-center justify-center border-gray-400"
+				borders +
+				" group flex h-40 w-40 items-center justify-center border-gray-400 " +
+				(squareState == "" ? "cursor-pointer" : "")
 			}
 			onClick={handleClick}
 		>
