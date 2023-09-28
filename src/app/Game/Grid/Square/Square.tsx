@@ -1,29 +1,55 @@
+import { memo } from "react";
+
 import { Turn } from "@/types";
+import "./Square.css";
 
-const x = (
-	<svg
-		viewBox="0 0 100 100"
-		height={90}
-		width={90}
-		className="fill-black dark:fill-white"
-	>
-		<g transform="rotate(45, 50, 50)">
-			<rect x="45" y="0" width="10" height="100" />
-			<rect x="0" y="45" width="100" height="10" />
-		</g>
-	</svg>
-);
+interface ShapeProps {
+	hover?: boolean;
+}
 
-const o = (
-	<svg
-		viewBox="0 0 100 100"
-		height={85}
-		width={85}
-		className="stroke-black dark:stroke-white"
-	>
-		<circle cx="50" cy="50" r="45" fill="none" strokeWidth={8} />
-	</svg>
-);
+const X = memo(function X({ hover }: ShapeProps) {
+	return (
+		<svg
+			viewBox="0 0 50 50"
+			height={100}
+			width={100}
+			strokeWidth={3}
+			className={
+				"stroke-black dark:stroke-white" +
+				(hover ? " hover-shape" : " x--animated")
+			}
+		>
+			<g>
+				<line id="x1" x1="8.5" y1="41.5" x2="41.5" y2="8.5" />
+				<line id="x2" x1="41.5" y1="41.5" x2="8.5" y2="8.5" />
+			</g>
+		</svg>
+	);
+});
+
+const O = memo(function O({ hover }: ShapeProps) {
+	return (
+		<svg
+			viewBox="0 0 100 100"
+			height={85}
+			width={85}
+			aria-hidden={hover}
+			className={
+				"stroke-black dark:stroke-white" +
+				(hover ? " hover-shape" : " o--animated")
+			}
+		>
+			<circle
+				cx="50"
+				cy="50"
+				r="45"
+				fill="none"
+				strokeWidth={8}
+				transform="rotate(-90, 50, 50)"
+			/>
+		</svg>
+	);
+});
 
 export interface SquareProps {
 	whoseTurn: Turn;
@@ -46,22 +72,15 @@ export function Square({
 	function contents() {
 		switch (squareState) {
 			case "x":
-				return x;
+				return <X />;
 			case "o":
-				return o;
+				return <O />;
 			case "":
 				// if game  over
 				if (whoseTurn === "") {
 					return "";
 				} else {
-					return (
-						<div
-							aria-hidden
-							className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10 dark:group-hover:opacity-20"
-						>
-							{whoseTurn == "x" ? x : o}
-						</div>
-					);
+					return whoseTurn == "x" ? <X hover /> : <O hover />;
 				}
 		}
 	}
@@ -87,8 +106,8 @@ export function Square({
 		>
 			<div
 				className={
-					"flex h-full w-full items-center justify-center " +
-					(squareState == "" && whoseTurn !== "" ? "cursor-pointer" : "")
+					"flex h-full w-full items-center justify-center" +
+					(squareState == "" && whoseTurn !== "" ? " cursor-pointer" : "")
 				}
 			>
 				{contents()}
