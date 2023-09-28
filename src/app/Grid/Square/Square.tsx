@@ -53,7 +53,7 @@ export function Square({
 				return (
 					<div
 						aria-hidden
-						className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10"
+						className="opacity-0 transition-opacity group-hover:visible group-hover:opacity-10 dark:group-hover:opacity-20"
 					>
 						{whoseTurn == "x" ? x : o}
 					</div>
@@ -74,16 +74,20 @@ export function Square({
 		"border-b-4" + (borderBottom ? "" : " border-b-transparent"),
 		"border-l-4" + (borderLeft ? "" : " border-l-transparent"),
 	].join(" ");
+
 	return (
 		<div
-			className={
-				borders +
-				" group flex h-40 w-40 items-center justify-center border-gray-400 " +
-				(squareState == "" ? "cursor-pointer" : "")
-			}
+			className={borders + " group h-40 w-40 border-gray-400"}
 			onClick={handleClick}
 		>
-			{contents()}
+			<div
+				className={
+					"flex h-full w-full items-center justify-center " +
+					(squareState == "" ? "cursor-pointer" : "")
+				}
+			>
+				{contents()}
+			</div>
 		</div>
 	);
 }
