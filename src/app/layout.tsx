@@ -80,11 +80,13 @@ export default function RootLayout({
 			<body
 				className={
 					inter.className +
-					"bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200"
+					" flex h-screen flex-col bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200"
 				}
 			>
-				<NavBar />
-				{children}
+				<nav>
+					<NavBar />
+				</nav>
+				<main className="flex-grow">{children}</main>
 			</body>
 		</html>
 	);

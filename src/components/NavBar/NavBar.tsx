@@ -3,7 +3,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function NavBar() {
 	return (
-		<nav className="flex justify-end gap-2 px-4 py-2">
+		<div className="flex justify-end gap-2 px-4 py-2">
 			<ThemeToggle />
 			<a
 				className="nav-button"
@@ -13,6 +13,6 @@ export function NavBar() {
 			>
 				<IconGitHub />
 			</a>
-		</nav>
+		</div>
 	);
 }

@@ -39,13 +39,10 @@ export function Square({
 	}
 
 	return (
-		<div
-			className={borders + " group h-40 w-40 border-gray-400"}
-			onClick={onChoice}
-		>
+		<div className={borders + " group border-gray-400"} onClick={onChoice}>
 			<div
 				className={
-					"flex h-full w-full items-center justify-center" +
+					"flex aspect-square h-full w-full items-center justify-center" +
 					(squareState == "" && whoseTurn !== "" ? " cursor-pointer" : "")
 				}
 			>

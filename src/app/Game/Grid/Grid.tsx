@@ -1,8 +1,8 @@
 "use client";
 
+import { useImmer } from "use-immer";
 import { Turn } from "@/types";
 import { Square } from "./Square";
-import { useImmer } from "use-immer";
 
 export function Grid() {
 	const [gameState, setGameState] = useImmer({
@@ -26,78 +26,76 @@ export function Grid() {
 	}
 
 	return (
-		<div className="flex h-screen w-screen items-center justify-center">
-			<div className="mb-40 grid grid-cols-3">
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[0]}
-					onChoice={handleChoice(0)}
-					borderBottom
-					borderRight
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[1]}
-					onChoice={handleChoice(1)}
-					borderBottom
-					borderRight
-					borderLeft
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[2]}
-					onChoice={handleChoice(2)}
-					borderBottom
-					borderLeft
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[3]}
-					onChoice={handleChoice(3)}
-					borderTop
-					borderRight
-					borderBottom
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[4]}
-					onChoice={handleChoice(4)}
-					borderTop
-					borderRight
-					borderBottom
-					borderLeft
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[5]}
-					onChoice={handleChoice(5)}
-					borderTop
-					borderBottom
-					borderLeft
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[6]}
-					onChoice={handleChoice(6)}
-					borderTop
-					borderRight
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[7]}
-					onChoice={handleChoice(7)}
-					borderTop
-					borderRight
-					borderLeft
-				/>
-				<Square
-					whoseTurn={whoseTurn}
-					squareState={squares[8]}
-					onChoice={handleChoice(8)}
-					borderTop
-					borderLeft
-				/>
-			</div>
+		<div className="mx-8 grid aspect-square max-w-lg grid-cols-3">
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[0]}
+				onChoice={handleChoice(0)}
+				borderBottom
+				borderRight
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[1]}
+				onChoice={handleChoice(1)}
+				borderBottom
+				borderRight
+				borderLeft
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[2]}
+				onChoice={handleChoice(2)}
+				borderBottom
+				borderLeft
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[3]}
+				onChoice={handleChoice(3)}
+				borderTop
+				borderRight
+				borderBottom
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[4]}
+				onChoice={handleChoice(4)}
+				borderTop
+				borderRight
+				borderBottom
+				borderLeft
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[5]}
+				onChoice={handleChoice(5)}
+				borderTop
+				borderBottom
+				borderLeft
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[6]}
+				onChoice={handleChoice(6)}
+				borderTop
+				borderRight
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[7]}
+				onChoice={handleChoice(7)}
+				borderTop
+				borderRight
+				borderLeft
+			/>
+			<Square
+				whoseTurn={whoseTurn}
+				squareState={squares[8]}
+				onChoice={handleChoice(8)}
+				borderTop
+				borderLeft
+			/>
 		</div>
 	);
 }

@@ -10,8 +10,8 @@ const X = memo(function O({ hover }: XOProps) {
 	return (
 		<svg
 			viewBox="0 0 50 50"
-			height={100}
-			width={100}
+			height="80%"
+			width="80%"
 			strokeWidth={3}
 			className={
 				"stroke-black dark:stroke-white" +
@@ -30,8 +30,8 @@ const O = memo(function O({ hover }: XOProps) {
 	return (
 		<svg
 			viewBox="0 0 100 100"
-			height={85}
-			width={85}
+			height="80%"
+			width="80%"
 			aria-hidden={hover}
 			className={
 				"stroke-black dark:stroke-white" +
@@ -41,9 +41,9 @@ const O = memo(function O({ hover }: XOProps) {
 			<circle
 				cx="50"
 				cy="50"
-				r="45"
+				r="38"
 				fill="none"
-				strokeWidth={8}
+				strokeWidth={6}
 				transform="rotate(-90, 50, 50)"
 			/>
 		</svg>
