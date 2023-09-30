@@ -80,10 +80,10 @@ export default function RootLayout({
 			<body
 				className={
 					inter.className +
-					" flex h-screen flex-col bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200"
+					" flex flex-col bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200"
 				}
 			>
-				<nav>
+				<nav className="mb-4">
 					<NavBar />
 				</nav>
 				<main className="flex-grow">{children}</main>
