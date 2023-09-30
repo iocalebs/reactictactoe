@@ -6,22 +6,24 @@
 	}
 }
 
-.o--animated {
-	stroke-dasharray: 300;
-	stroke-dashoffset: 300;
-	animation: draw-o 0.25s linear forwards;
-}
+@media (prefers-reduced-motion: no-preference) {
+	.o--animated {
+		stroke-dasharray: 300;
+		stroke-dashoffset: 300;
+		animation: draw-o 0.25s linear forwards;
+	}
 
-.x--animated line {
-	stroke-dasharray: 430;
-	stroke-dashoffset: 800;
+	.x--animated line {
+		stroke-dasharray: 430;
+		stroke-dashoffset: 800;
 
-	animation: draw-x 0.25s linear;
-	animation-fill-mode: forwards;
-}
+		animation: draw-x 0.25s linear;
+		animation-fill-mode: forwards;
+	}
 
-.x--animated #x-line-2 {
-	animation-delay: 0.25s;
+	.x--animated #x-line-2 {
+		animation-delay: 0.25s;
+	}
 }
 
 @keyframes draw-o {
