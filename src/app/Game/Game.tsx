@@ -40,11 +40,8 @@ export function Game() {
 				onChoice={handleChoice}
 			/>
 			<div className={gameOver ? "" : "invisible"}>
-				<Button
-					icon={<IconReset className={styles.ResetIconSize} />}
-					onClick={reset}
-				>
-					<span className={styles.ResetButtonText}>Reset</span>
+				<Button icon={<IconReset />} onClick={reset}>
+					Reset
 				</Button>
 			</div>
 		</div>
