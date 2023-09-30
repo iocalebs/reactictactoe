@@ -1,0 +1,8 @@
+.ResetButtonText {
+	font-size: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.ResetIconSize {
+	height: clamp(0.75rem, 3vw, 1.5rem);
+	width: clamp(0.75rem, 3vw, 1.5rem);
+}

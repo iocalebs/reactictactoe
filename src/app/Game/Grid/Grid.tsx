@@ -1,30 +1,17 @@
 "use client";
 
-import { useImmer } from "use-immer";
 import { Turn } from "@/types";
 import { Square } from "./Square";
 
-export function Grid() {
-	const [gameState, setGameState] = useImmer({
-		gameOver: false,
-		whoseTurn: "x" as Turn,
-		squares: Array<Turn>(9).fill(""),
-	});
-	const { gameOver, whoseTurn, squares } = gameState;
+export interface GridProps {
+	gameOver: boolean;
+	squares: Turn[];
+	whoseTurn: Turn;
+	onChoice: (square: number) => void;
+}
 
-	function handleChoice(index: number) {
-		return function () {
-			if (gameOver) {
-				return;
-			}
-			setGameState((draft) => {
-				draft.squares[index] = whoseTurn;
-				draft.gameOver = isGameOver(draft.squares, whoseTurn);
-				draft.whoseTurn = draft.gameOver ? "" : whoseTurn === "x" ? "o" : "x";
-			});
-		};
-	}
-
+export function Grid({ gameOver, squares, whoseTurn, onChoice }: GridProps) {
+	const handleChoice = (square: number) => () => onChoice(square);
 	return (
 		<div className="mx-8 grid aspect-square max-w-lg grid-cols-3">
 			<Square
@@ -98,26 +85,4 @@ export function Grid() {
 			/>
 		</div>
 	);
-}
-
-const winStates = [
-	// horizontal lins
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-
-	// vertical lines
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-
-	// diagonal lines
-	[0, 4, 8],
-	[2, 4, 6],
-];
-
-function isGameOver(squares: Turn[], whoseTurn: Turn): boolean {
-	return winStates.some((winState) => {
-		return winState.every((i) => squares[i] == whoseTurn);
-	});
 }
