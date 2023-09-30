@@ -16,6 +16,9 @@ export function Game() {
 	const { gameOver, squares, whoseTurn } = gameState;
 
 	function handleChoice(square: number) {
+		if (gameOver || squares[square] !== "") {
+			return;
+		}
 		setGameState((draft) => {
 			draft.squares[square] = whoseTurn;
 			draft.gameOver = isGameOver(draft.squares, whoseTurn);
