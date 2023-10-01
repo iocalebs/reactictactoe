@@ -86,7 +86,7 @@ export default function RootLayout({
 				<nav className="mb-4">
 					<NavBar />
 				</nav>
-				<main className="flex-grow">{children}</main>
+				<main className="mx-8">{children}</main>
 			</body>
 		</html>
 	);
