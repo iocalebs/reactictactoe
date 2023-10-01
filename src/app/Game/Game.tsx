@@ -37,7 +37,6 @@ export function Game() {
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center gap-10">
 			<Grid
-				gameOver={gameOver}
 				squares={squares}
 				whoseTurn={whoseTurn}
 				onChoice={handleChoice}

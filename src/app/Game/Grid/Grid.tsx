@@ -4,13 +4,12 @@ import { Turn } from "@/types";
 import { Square } from "./Square";
 
 export interface GridProps {
-	gameOver: boolean;
 	squares: Turn[];
 	whoseTurn: Turn;
 	onChoice: (square: number) => void;
 }
 
-export function Grid({ gameOver, squares, whoseTurn, onChoice }: GridProps) {
+export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 	const handleChoice = (square: number) => () => onChoice(square);
 	return (
 		<div className="mx-8 grid aspect-square max-w-lg grid-cols-3">
