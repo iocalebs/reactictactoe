@@ -6,6 +6,7 @@ import { IconReset } from "@/components/Icon";
 import { Turn } from "@/types";
 import { Grid } from "./Grid";
 import styles from "./Game.module.css";
+import { WinLine } from "./WinLine";
 
 export function Game() {
 	const [gameState, setGameState] = useImmer({
@@ -36,11 +37,16 @@ export function Game() {
 
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center gap-10">
-			<Grid
-				squares={squares}
-				whoseTurn={whoseTurn}
-				onChoice={handleChoice}
-			/>
+			<div className="relative">
+				<WinLine />
+				<div className="m-8">
+					<Grid
+						squares={squares}
+						whoseTurn={whoseTurn}
+						onChoice={handleChoice}
+					/>
+				</div>
+			</div>
 			<div className={gameOver ? "" : "invisible"}>
 				<Button icon={<IconReset />} onClick={reset}>
 					Reset
@@ -68,6 +74,9 @@ const winStates = [
 
 function isGameOver(squares: Turn[], whoseTurn: Turn): boolean {
 	return winStates.some((winState) => {
-		return winState.every((i) => squares[i] == whoseTurn);
+		return (
+			winState.every((i) => squares[i] == whoseTurn) ||
+			squares.every((square) => square !== "")
+		);
 	});
 }
