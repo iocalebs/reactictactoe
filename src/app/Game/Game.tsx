@@ -5,7 +5,6 @@ import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
 import { Turn } from "@/types";
 import { Grid } from "./Grid";
-import styles from "./Game.module.css";
 import { WinLine } from "./WinLine";
 
 export function Game() {
