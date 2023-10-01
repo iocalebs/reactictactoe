@@ -17,8 +17,7 @@
 		stroke-dasharray: 430;
 		stroke-dashoffset: 800;
 
-		animation: draw-x 0.2s linear;
-		animation-fill-mode: forwards;
+		animation: draw-x 0.2s linear forwards;
 	}
 
 	.x--animated #x-line-2 {
