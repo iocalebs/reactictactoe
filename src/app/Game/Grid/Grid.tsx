@@ -12,7 +12,7 @@ export interface GridProps {
 export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 	const handleChoice = (square: number) => () => onChoice(square);
 	return (
-		<div className="mx-8 grid aspect-square max-w-lg grid-cols-3">
+		<div className="grid aspect-square max-w-lg grid-cols-3">
 			<Square
 				whoseTurn={whoseTurn}
 				squareState={squares[0]}

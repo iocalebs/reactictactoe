@@ -1,43 +1,59 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
 import { Turn } from "@/types";
 import { Grid } from "./Grid";
-import { WinLine } from "./WinLine";
+import { WinLine, WinState } from "./WinLine";
+
+type GameStatus = WinState | "draw" | "playing";
+
+const initialState = {
+	status: "playing" as GameStatus,
+	squares: Array<Turn>(9).fill(""),
+	whoseTurn: "x" as Turn,
+	winAnimationComplete: false,
+};
 
 export function Game() {
-	const [gameState, setGameState] = useImmer({
-		gameOver: false,
-		squares: Array<Turn>(9).fill(""),
-		whoseTurn: "x" as Turn,
-	});
-	const { gameOver, squares, whoseTurn } = gameState;
+	const [gameState, setGameState] = useImmer({ ...initialState });
+	const { status, squares, whoseTurn, winAnimationComplete } = gameState;
 
 	function handleChoice(square: number) {
-		if (gameOver || squares[square] !== "") {
+		if (status !== "playing" || squares[square] !== "") {
 			return;
 		}
 		setGameState((draft) => {
 			draft.squares[square] = whoseTurn;
-			draft.gameOver = isGameOver(draft.squares, whoseTurn);
-			draft.whoseTurn = draft.gameOver ? "" : whoseTurn === "x" ? "o" : "x";
+			draft.status = getGameStatus(draft.squares, whoseTurn);
+			draft.whoseTurn =
+				draft.status !== "playing" ? "" : whoseTurn === "x" ? "o" : "x";
+		});
+	}
+
+	function handleWinAnimationComplete() {
+		setGameState((draft) => {
+			draft.winAnimationComplete = true;
 		});
 	}
 
 	function reset() {
-		setGameState((draft) => {
-			draft.squares = Array<Turn>(9).fill("");
-			draft.gameOver = false;
-			draft.whoseTurn = "x";
-		});
+		setGameState({ ...initialState });
 	}
 
+	const win = status !== "playing" && status !== "draw";
+
 	return (
-		<div className="flex h-full w-full flex-col items-center justify-center gap-10">
-			<div className="relative">
-				<WinLine />
+		<div className="flex h-full w-full flex-col items-center justify-center">
+			<div className="relative mb-4">
+				{win && (
+					<WinLine
+						winState={status}
+						onAnimationComplete={handleWinAnimationComplete}
+					/>
+				)}
 				<div className="m-8">
 					<Grid
 						squares={squares}
@@ -46,7 +62,14 @@ export function Game() {
 					/>
 				</div>
 			</div>
-			<div className={gameOver ? "" : "invisible"}>
+			<div
+				className={
+					"transition-opacity duration-500" +
+					(winAnimationComplete || status === "draw"
+						? " opacity-100 "
+						: " invisible opacity-0")
+				}
+			>
 				<Button icon={<IconReset />} onClick={reset}>
 					Reset
 				</Button>
@@ -55,27 +78,30 @@ export function Game() {
 	);
 }
 
-const winStates = [
-	// horizontal lins
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
+const winStates: Record<WinState, number[]> = {
+	Top: [0, 1, 2],
+	MiddleHorizontal: [3, 4, 5],
+	Bottom: [6, 7, 8],
 
-	// vertical lines
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
+	Left: [0, 3, 6],
+	MiddleVertical: [1, 4, 7],
+	Right: [2, 5, 8],
 
 	// diagonal lines
-	[0, 4, 8],
-	[2, 4, 6],
-];
+	TopLeftBottomRight: [0, 4, 8],
+	TopRightBottomLeft: [2, 4, 6],
+};
 
-function isGameOver(squares: Turn[], whoseTurn: Turn): boolean {
-	return winStates.some((winState) => {
+function getGameStatus(currentSquares: Turn[], whoseTurn: Turn): GameStatus {
+	const winState = Object.entries(winStates).find(([_, winStateSquares]) => {
 		return (
-			winState.every((i) => squares[i] == whoseTurn) ||
-			squares.every((square) => square !== "")
+			winStateSquares.every((i) => currentSquares[i] == whoseTurn) ||
+			currentSquares.every((square) => square !== "")
 		);
 	});
+	if (winState) {
+		return winState[0] as WinState;
+	}
+	const allSquaresFilled = currentSquares.every((square) => square !== "");
+	return allSquaresFilled ? "draw" : "playing";
 }

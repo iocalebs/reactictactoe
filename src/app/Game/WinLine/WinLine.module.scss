@@ -1,0 +1,57 @@
+/* Taking into consideration margin around grid (2rem) and borders between cells (0.25rem each) */
+%WinLine {
+	display: flex;
+	position: absolute;
+	justify-content: center;
+}
+
+%WinLineDiagonal {
+	@extend %WinLine;
+	top: calc(50% * (1 - sqrt(2)));
+	left: calc(50% * (1 - sqrt(2)));
+	width: calc(100% * sqrt(2));
+	height: calc(100% * sqrt(2));
+}
+
+.WinLineMiddleVertical {
+	@extend %WinLine;
+	width: 100%;
+	height: 100%;
+}
+
+.WinLineLeft {
+	@extend %WinLine;
+	left: 2rem;
+	width: calc(33.33% - 1.5rem + 3px);
+}
+
+.WinLineRight {
+	@extend %WinLine;
+	right: 2rem;
+	width: calc(33% - 1.5rem + 3px);
+}
+
+.WinLineMiddleHorizontal {
+	@extend .WinLineMiddleVertical;
+	transform: rotate(-90deg);
+}
+
+.WinLineTop {
+	@extend .WinLineMiddleHorizontal;
+	top: calc(-33.33% + 1.5rem - 3px);
+}
+
+.WinLineBottom {
+	@extend .WinLineMiddleHorizontal;
+	bottom: calc(-33.33% + 1.5rem - 3px);
+}
+
+.WinLineTopLeftBottomRight {
+	@extend %WinLineDiagonal;
+	transform: rotate(-45deg);
+}
+
+.WinLineTopRightBottomLeft {
+	@extend %WinLineDiagonal;
+	transform: rotate(45deg);
+}
