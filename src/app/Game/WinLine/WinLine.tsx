@@ -27,21 +27,20 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 	const [lineLength, setLineLength] = useState<number | null>(null);
 	const lineRef = useRef<HTMLDivElement>(null);
 
-	function updateLineLength() {
-		let lineLength = lineRef?.current?.getBoundingClientRect()?.width || null;
-		if (
-			winState === "TopLeftBottomRight" ||
-			winState === "TopRightBottomLeft"
-		) {
-			lineLength = lineLength && lineLength * Math.sqrt(2);
-		}
-		setLineLength(lineLength);
-	}
 	useLayoutEffect(() => {
-		updateLineLength();
+		function updateLineLength() {
+			let lineLength = lineRef?.current?.getBoundingClientRect()?.width || null;
+			if (
+				winState === "TopLeftBottomRight" ||
+				winState === "TopRightBottomLeft"
+			) {
+				lineLength = lineLength && lineLength * Math.sqrt(2);
+			}
+			setLineLength(lineLength);
+		}
 		window.addEventListener("resize", updateLineLength);
 		return () => window.removeEventListener("resize", updateLineLength);
-	}, [winState, updateLineLength]);
+	}, [winState]);
 
 	useEffect(() => {
 		const delay =
