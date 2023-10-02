@@ -38,6 +38,7 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 			}
 			setLineLength(lineLength);
 		}
+		updateLineLength();
 		window.addEventListener("resize", updateLineLength);
 		return () => window.removeEventListener("resize", updateLineLength);
 	}, [winState]);
