@@ -66,9 +66,10 @@ export function Game() {
 				className={
 					"transition-opacity duration-500" +
 					(winAnimationComplete || status === "draw"
-						? " opacity-100 "
-						: " invisible opacity-0")
+						? " animate-pulse opacity-100  "
+						: " opacity-0")
 				}
+				style={{ animationDelay: "1s", animationDuration: "3s" }}
 			>
 				<Button icon={<IconReset />} onClick={reset}>
 					Reset
