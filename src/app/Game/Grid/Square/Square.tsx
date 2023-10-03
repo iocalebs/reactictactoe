@@ -39,7 +39,10 @@ export function Square({
 	}
 
 	return (
-		<div className={borders + " group border-gray-400"} onClick={onChoice}>
+		<div
+			className={borders + " group select-none border-gray-400"}
+			onClick={onChoice}
+		>
 			<div
 				className={
 					"flex aspect-square h-full w-full items-center justify-center" +
