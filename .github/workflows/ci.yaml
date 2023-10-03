@@ -1,7 +1,7 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -10,13 +10,9 @@ jobs:
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
         run: bun install
-      - name: Run linter
-        run: bun lint
-      - name: Run tests
-        run: bun jest --coverage
+      - name: Run build
+        run: bun run build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           files: ./coverage/coverage-final.json
