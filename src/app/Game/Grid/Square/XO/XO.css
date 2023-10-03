@@ -16,7 +16,6 @@
 	.x--animated line {
 		stroke-dasharray: 430;
 		stroke-dashoffset: 800;
-
 		animation: draw-x 0.2s linear forwards;
 	}
 
@@ -35,6 +34,7 @@
 	from {
 		stroke-dasharray: 430;
 	}
+
 	to {
 		stroke-dasharray: 400;
 	}

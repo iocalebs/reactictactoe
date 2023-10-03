@@ -10,7 +10,6 @@
 	#x1 {
 		stroke-dasharray: 430;
 		stroke-dashoffset: 800;
-
 		animation: x 0.25s linear;
 		animation-delay: 0.25s;
 		animation-fill-mode: forwards;
@@ -19,7 +18,6 @@
 	#x2 {
 		stroke-dasharray: 430;
 		stroke-dashoffset: 800;
-
 		animation: x 0.25s linear;
 		animation-fill-mode: forwards;
 	}
@@ -29,6 +27,7 @@
 	from {
 		stroke-dasharray: 430;
 	}
+
 	to {
 		stroke-dasharray: 400;
 	}

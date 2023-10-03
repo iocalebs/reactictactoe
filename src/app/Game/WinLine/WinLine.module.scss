@@ -1,57 +1,71 @@
 /* Taking into consideration margin around grid (2rem) and borders between cells (0.25rem each) */
-%WinLine {
+%WinLineVertical {
 	display: flex;
 	position: absolute;
 	justify-content: center;
 }
 
 %WinLineDiagonal {
-	@extend %WinLine;
+	@extend %WinLineVertical;
+
 	top: calc(50% * (1 - sqrt(2)));
 	left: calc(50% * (1 - sqrt(2)));
 	width: calc(100% * sqrt(2));
 	height: calc(100% * sqrt(2));
 }
 
-.WinLineMiddleVertical {
-	@extend %WinLine;
+%WinLineHorizontal {
+	@extend %WinLineVertical;
+
+	transform: rotate(-90deg);
 	width: 100%;
 	height: 100%;
 }
 
+.WinLineMiddleVertical {
+	@extend %WinLineVertical;
+
+	width: 100%;
+}
+
 .WinLineLeft {
-	@extend %WinLine;
+	@extend %WinLineVertical;
+
 	left: 2rem;
 	width: calc(33.33% - 1.5rem + 3px);
 }
 
 .WinLineRight {
-	@extend %WinLine;
+	@extend %WinLineVertical;
+
 	right: 2rem;
 	width: calc(33% - 1.5rem + 3px);
 }
 
 .WinLineMiddleHorizontal {
-	@extend .WinLineMiddleVertical;
-	transform: rotate(-90deg);
+	@extend %WinLineHorizontal;
 }
 
 .WinLineTop {
-	@extend .WinLineMiddleHorizontal;
+	@extend %WinLineHorizontal;
+
 	top: calc(-33.33% + 1.5rem - 3px);
 }
 
 .WinLineBottom {
-	@extend .WinLineMiddleHorizontal;
+	@extend %WinLineHorizontal;
+
 	bottom: calc(-33.33% + 1.5rem - 3px);
 }
 
 .WinLineTopLeftBottomRight {
 	@extend %WinLineDiagonal;
+
 	transform: rotate(-45deg);
 }
 
 .WinLineTopRightBottomLeft {
 	@extend %WinLineDiagonal;
+
 	transform: rotate(45deg);
 }
