@@ -71,7 +71,10 @@ export function Game() {
 				}
 				style={{ animationDelay: "1s", animationDuration: "3s" }}
 			>
-				<Button icon={<IconReset />} onClick={reset}>
+				<Button
+					icon={<IconReset className="h-8 w-8 sm:h-5 sm:w-5" />}
+					onClick={reset}
+				>
 					Reset
 				</Button>
 			</div>
