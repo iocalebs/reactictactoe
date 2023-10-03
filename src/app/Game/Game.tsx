@@ -94,10 +94,7 @@ const winStates: Record<WinState, number[]> = {
 
 function getGameStatus(currentSquares: Turn[], whoseTurn: Turn): GameStatus {
 	const winState = Object.entries(winStates).find(([_, winStateSquares]) => {
-		return (
-			winStateSquares.every((i) => currentSquares[i] == whoseTurn) ||
-			currentSquares.every((square) => square !== "")
-		);
+		return winStateSquares.every((i) => currentSquares[i] == whoseTurn);
 	});
 	if (winState) {
 		return winState[0] as WinState;
