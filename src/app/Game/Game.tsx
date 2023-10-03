@@ -64,7 +64,7 @@ export function Game() {
 			</div>
 			<div
 				className={
-					"transition-opacity duration-500" +
+					"mt-16 transition-opacity duration-500 sm:mt-0" +
 					(winAnimationComplete || status === "draw"
 						? " animate-pulse opacity-100  "
 						: " opacity-0")
