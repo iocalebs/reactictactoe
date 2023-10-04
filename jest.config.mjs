@@ -9,13 +9,12 @@ const createJestConfig = nextJest({
 /** @type {import('jest').Config} */
 const config = {
 	collectCoverageFrom: ["<rootDir>/src/**"],
-	// Add more setup options before each test is run
-	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-
-	testEnvironment: "jest-environment-jsdom",
 	coverageThreshold: {
 		global: 90,
 	},
+	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+	testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/e2e/"],
+	testEnvironment: "jest-environment-jsdom",
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
