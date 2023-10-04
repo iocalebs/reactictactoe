@@ -1,18 +1,24 @@
 import { IconGitHub } from "@/components/Icon";
-import { ThemeToggle } from "./ThemeToggle";
+import { ColorModeToggle } from "./ColorModeToggle";
+import { ColorModeScript } from "./ColorModeScript";
 
 export function NavBar() {
 	return (
-		<div className="flex justify-end gap-2 px-4 py-2">
-			<ThemeToggle />
-			<a
-				className="nav-button"
-				aria-label="GitHub repository"
-				href="https://github.com/castdin/reactic-tac-toe"
-				target="_blank"
-			>
-				<IconGitHub />
-			</a>
-		</div>
+		<>
+			<ColorModeScript />
+			<nav className="mb-4">
+				<div className="flex justify-end gap-2 px-4 py-2">
+					<ColorModeToggle />
+					<a
+						className="nav-button"
+						aria-label="GitHub repository"
+						href="https://github.com/castdin/reactic-tac-toe"
+						target="_blank"
+					>
+						<IconGitHub />
+					</a>
+				</div>
+			</nav>
+		</>
 	);
 }

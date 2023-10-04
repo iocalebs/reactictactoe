@@ -8,7 +8,7 @@
 		"dev": "next dev",
 		"e2e": "bun playwright test",
 		"eslint": "next lint",
-		"lint": "prettier --check . && bun stylelint && next lint",
+		"lint": "prettier --check . && stylelint \"**/*.{css,scss}\" && next lint",
 		"prettier": "prettier --write .",
 		"start": "next start",
 		"stylelint": "stylelint \"**/*.{css,scss}\" --fix",

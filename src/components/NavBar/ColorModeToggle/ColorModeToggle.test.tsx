@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import { ThemeToggle } from ".";
+import { ColorModeToggle } from ".";
 
-describe("<ThemeToggle />", () => {
+describe("<ColorModeToggle />", () => {
 	test("light mode button enables light mode on click, then sets focus on dark mode button", () => {
 		const mockSetTheme = jest.fn();
-		window.__setTheme = mockSetTheme;
-		render(<ThemeToggle />);
+		window.__setColorMode = mockSetTheme;
+		render(<ColorModeToggle />);
 
 		const lightModeButton = screen.getByRole("button", {
 			name: /light/i,
@@ -20,9 +20,9 @@ describe("<ThemeToggle />", () => {
 	});
 
 	test("dark mode button enables dark mode on click, then sets focus on light mode button", () => {
-		render(<ThemeToggle />);
+		render(<ColorModeToggle />);
 		const mockSetTheme = jest.fn();
-		window.__setTheme = mockSetTheme;
+		window.__setColorMode = mockSetTheme;
 
 		const lightModeButton = screen.getByRole("button", {
 			name: /light/i,
