@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import clsx from "clsx";
 import styles from "./WinLine.module.scss";
 
 const FINAL_DASH_COUNT = 14;
@@ -17,13 +18,13 @@ export type WinState =
 	| "TopRightBottomLeft";
 
 export interface WinLineProps {
-	animate: boolean;
+	reduceMotion: boolean;
 	winState: WinState;
 	onAnimationComplete: () => void;
 }
 
 export function WinLine({
-	animate,
+	reduceMotion,
 	winState,
 	onAnimationComplete,
 }: WinLineProps) {
@@ -52,7 +53,7 @@ export function WinLine({
 			dashCount == 0
 				? DASH_ANIMATION_START_DELAY_MS
 				: DASH_ANIMATION_INTERVAL_MS;
-		if (!animate && dashCount < FINAL_DASH_COUNT) {
+		if (reduceMotion && dashCount < FINAL_DASH_COUNT) {
 			setDashCount(FINAL_DASH_COUNT);
 		} else if (dashCount < FINAL_DASH_COUNT) {
 			const timeout = setTimeout(() => {
@@ -62,7 +63,7 @@ export function WinLine({
 		} else {
 			onAnimationComplete();
 		}
-	}, [animate, dashCount, onAnimationComplete]);
+	}, [reduceMotion, dashCount, onAnimationComplete]);
 
 	let dashSize = 0;
 	let dashGapSize = 0;
@@ -92,7 +93,11 @@ export function WinLine({
 	return (
 		<div className="absolute h-full w-full" ref={lineRef}>
 			<div className={getWinLineClass(winState)}>
-				<div className="animate-fade-in flex flex-col">{dashes}</div>
+				<div
+					className={clsx("flex flex-col", reduceMotion && "animate-fade-in")}
+				>
+					{dashes}
+				</div>
 			</div>
 		</div>
 	);

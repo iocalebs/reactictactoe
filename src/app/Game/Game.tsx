@@ -62,7 +62,7 @@ export function Game() {
 			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
 				{win && (
 					<WinLine
-						animate={!prefersReducedMotion}
+						reduceMotion={prefersReducedMotion}
 						winState={status}
 						onAnimationComplete={handleWinAnimationComplete}
 					/>
