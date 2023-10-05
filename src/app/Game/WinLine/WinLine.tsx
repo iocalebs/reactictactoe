@@ -3,7 +3,6 @@ import styles from "./WinLine.module.scss";
 
 const FINAL_DASH_COUNT = 14;
 const DASH_GAP_FACTOR = 0.4; // length of the gap as a percentage of the dash length
-const DASH_STROKE_FACTOR = 0.015; // width of the dash as a percentage of the game grid size
 const DASH_ANIMATION_INTERVAL_MS = 60;
 const DASH_ANIMATION_START_DELAY_MS = 600;
 
@@ -72,20 +71,19 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 		[...Array(dashCount)].map((e, i) => {
 			return (
 				<div
-					className="w-2 flex-shrink-0 bg-red-500"
+					className="aspect-[1/4] flex-shrink-0 bg-red-500"
 					key={i}
 					style={{
 						height: `${dashSize}px`,
 						marginBottom:
 							i === FINAL_DASH_COUNT - 1 ? undefined : `${dashGapSize}px`,
-						width: `${lineLength * DASH_STROKE_FACTOR}px`,
 					}}
 				/>
 			);
 		});
 
 	return (
-		<div ref={lineRef}>
+		<div className="absolute h-full w-full" ref={lineRef}>
 			<div className={getWinLineClass(winState)}>
 				<div className="flex flex-col">{dashes}</div>
 			</div>

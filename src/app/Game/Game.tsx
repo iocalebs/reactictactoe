@@ -11,6 +11,7 @@ import { WinLine, WinState } from "./WinLine";
 type GameStatus = WinState | "draw" | "playing";
 
 const initialState = {
+	first: "x" as Turn,
 	status: "playing" as GameStatus,
 	squares: Array<Turn>(9).fill(""),
 	whoseTurn: "x" as Turn,
@@ -19,7 +20,7 @@ const initialState = {
 
 export function Game() {
 	const [gameState, setGameState] = useImmer({ ...initialState });
-	const { status, squares, whoseTurn, winAnimationComplete } = gameState;
+	const { first, status, squares, whoseTurn, winAnimationComplete } = gameState;
 
 	function handleChoice(square: number) {
 		if (status !== "playing" || squares[square] !== "") {
@@ -40,27 +41,28 @@ export function Game() {
 	}
 
 	function reset() {
-		setGameState({ ...initialState });
+		const newFirst = first === "x" ? "o" : "x";
+		setGameState((draft) => {
+			draft.first = newFirst;
+			draft.whoseTurn = newFirst;
+			draft.squares = initialState.squares;
+			draft.status = initialState.status;
+			draft.winAnimationComplete = false;
+		});
 	}
 
 	const win = status !== "playing" && status !== "draw";
 
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
-			<div className="relative mb-4">
+			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
 				{win && (
 					<WinLine
 						winState={status}
 						onAnimationComplete={handleWinAnimationComplete}
 					/>
 				)}
-				<div className="m-8">
-					<Grid
-						squares={squares}
-						whoseTurn={whoseTurn}
-						onChoice={handleChoice}
-					/>
-				</div>
+				<Grid squares={squares} whoseTurn={whoseTurn} onChoice={handleChoice} />
 			</div>
 			<div
 				className={

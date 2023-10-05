@@ -12,75 +12,69 @@ export interface GridProps {
 export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 	const handleChoice = (square: number) => () => onChoice(square);
 	return (
-		<div className="grid aspect-square max-w-lg grid-cols-3">
+		<div className="m-8 grid aspect-square w-full grid-cols-3">
 			<Square
+				positionY="top"
+				positionX="left"
+				value={squares[0]}
 				whoseTurn={whoseTurn}
-				squareState={squares[0]}
 				onChoice={handleChoice(0)}
-				borderBottom
-				borderRight
 			/>
 			<Square
+				positionY="top"
+				positionX="middle"
+				value={squares[1]}
 				whoseTurn={whoseTurn}
-				squareState={squares[1]}
 				onChoice={handleChoice(1)}
-				borderBottom
-				borderRight
-				borderLeft
 			/>
 			<Square
+				positionY="top"
+				positionX="right"
+				value={squares[2]}
 				whoseTurn={whoseTurn}
-				squareState={squares[2]}
 				onChoice={handleChoice(2)}
-				borderBottom
-				borderLeft
 			/>
 			<Square
+				positionY="middle"
+				positionX="left"
+				value={squares[3]}
 				whoseTurn={whoseTurn}
-				squareState={squares[3]}
 				onChoice={handleChoice(3)}
-				borderTop
-				borderRight
-				borderBottom
 			/>
 			<Square
+				positionY="middle"
+				positionX="middle"
+				value={squares[4]}
 				whoseTurn={whoseTurn}
-				squareState={squares[4]}
 				onChoice={handleChoice(4)}
-				borderTop
-				borderRight
-				borderBottom
-				borderLeft
 			/>
 			<Square
+				positionY="middle"
+				positionX="right"
+				value={squares[5]}
 				whoseTurn={whoseTurn}
-				squareState={squares[5]}
 				onChoice={handleChoice(5)}
-				borderTop
-				borderBottom
-				borderLeft
 			/>
 			<Square
+				positionY="bottom"
+				positionX="left"
+				value={squares[6]}
 				whoseTurn={whoseTurn}
-				squareState={squares[6]}
 				onChoice={handleChoice(6)}
-				borderTop
-				borderRight
 			/>
 			<Square
+				positionY="bottom"
+				positionX="middle"
+				value={squares[7]}
 				whoseTurn={whoseTurn}
-				squareState={squares[7]}
 				onChoice={handleChoice(7)}
-				borderTop
-				borderRight
-				borderLeft
 			/>
 			<Square
+				positionY="bottom"
+				positionX="right"
+				value={squares[8]}
 				whoseTurn={whoseTurn}
-				squareState={squares[8]}
 				onChoice={handleChoice(8)}
-				borderTop
-				borderLeft
 			/>
 		</div>
 	);

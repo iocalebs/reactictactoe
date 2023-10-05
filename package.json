@@ -15,6 +15,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"clsx": "^2.0.0",
 		"immer": "^10.0.2",
 		"next": "latest",
 		"react": "latest",
