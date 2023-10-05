@@ -22,7 +22,7 @@
 	height: 100%;
 }
 
-.WinLineMiddleVertical {
+.WinLineCenterVertical {
 	@extend %WinLineVertical;
 
 	width: 100%;
@@ -42,7 +42,7 @@
 	width: calc(33% - 1.5rem + 3px);
 }
 
-.WinLineMiddleHorizontal {
+.WinLineCenterHorizontal {
 	@extend %WinLineHorizontal;
 }
 

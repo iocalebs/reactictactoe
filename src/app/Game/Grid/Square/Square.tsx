@@ -27,11 +27,14 @@ const o = (
 	</svg>
 );
 
+type PositionX = "left" | "center" | "right";
+type PositionY = "top" | "center" | "bottom";
+
 export interface SquareProps {
 	whoseTurn: Turn;
 	value: Turn;
-	positionX: "left" | "middle" | "right";
-	positionY: "top" | "middle" | "bottom";
+	positionX: PositionX;
+	positionY: PositionY;
 	borderTop?: boolean;
 	borderRight?: boolean;
 	borderLeft?: boolean;
@@ -58,7 +61,6 @@ export function Square({
 		squareContent = value === "x" ? x : o;
 	}
 
-	const openSquare = whoseTurn !== "" && value === "";
 	return (
 		<div
 			className={clsx(
@@ -70,12 +72,14 @@ export function Square({
 			)}
 		>
 			<button
+				aria-label={ariaLabel(positionX, positionY, value)}
+				disabled={value !== "" || whoseTurn === ""}
+				aria-disabled={value !== "" || whoseTurn === ""}
 				className={clsx(
 					"flex h-full w-full items-center justify-center p-[15%]",
 					value == "x" && styles.X,
 					value == "o" && styles.O,
 					hoveringOpenSquare && "opacity-10 dark:opacity-20",
-					!hoveringOpenSquare && "cursor-default",
 				)}
 				onClick={onChoice}
 				onMouseEnter={() => setHover(true)}
@@ -85,4 +89,54 @@ export function Square({
 			</button>
 		</div>
 	);
+}
+
+function ariaLabel(positionX: PositionX, positionY: PositionY, value: Turn) {
+	return `
+		${positionLabel(positionX, positionY)} square...
+		${squareStateLabel(value)}...
+	`;
+}
+
+function positionLabel(positionX: PositionX, positionY: PositionY): string {
+	switch (positionY) {
+		case "top": {
+			switch (positionX) {
+				case "left":
+					return "Northwest";
+				case "center":
+					return "North";
+				case "right":
+					return "Northeast";
+			}
+		}
+		case "center": {
+			switch (positionX) {
+				case "left":
+					return "West";
+				case "center":
+					return "Center";
+				case "right":
+					return "East";
+			}
+		}
+		case "bottom": {
+			switch (positionX) {
+				case "left":
+					return "Southwest";
+				case "center":
+					return "South";
+				case "right":
+					return "Southeast";
+			}
+		}
+	}
+}
+
+function squareStateLabel(value: Turn): string {
+	if (value === "") {
+		return "Empty";
+	} else {
+		return value;
+	}
 }

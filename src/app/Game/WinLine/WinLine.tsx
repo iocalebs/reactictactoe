@@ -11,8 +11,8 @@ export type WinState =
 	| "Bottom"
 	| "Left"
 	| "Right"
-	| "MiddleVertical"
-	| "MiddleHorizontal"
+	| "CenterVertical"
+	| "CenterHorizontal"
 	| "TopLeftBottomRight"
 	| "TopRightBottomLeft";
 
@@ -108,10 +108,10 @@ function getWinLineClass(winState: WinState): string {
 			return styles.WinLineLeft;
 		case "Right":
 			return styles.WinLineRight;
-		case "MiddleHorizontal":
-			return styles.WinLineMiddleHorizontal;
-		case "MiddleVertical":
-			return styles.WinLineMiddleVertical;
+		case "CenterHorizontal":
+			return styles.WinLineCenterHorizontal;
+		case "CenterVertical":
+			return styles.WinLineCenterVertical;
 		case "TopLeftBottomRight":
 			return styles.WinLineTopLeftBottomRight;
 		case "TopRightBottomLeft":

@@ -22,7 +22,7 @@ export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 			/>
 			<Square
 				positionY="top"
-				positionX="middle"
+				positionX="center"
 				value={squares[1]}
 				whoseTurn={whoseTurn}
 				onChoice={handleChoice(1)}
@@ -35,21 +35,21 @@ export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 				onChoice={handleChoice(2)}
 			/>
 			<Square
-				positionY="middle"
+				positionY="center"
 				positionX="left"
 				value={squares[3]}
 				whoseTurn={whoseTurn}
 				onChoice={handleChoice(3)}
 			/>
 			<Square
-				positionY="middle"
-				positionX="middle"
+				positionY="center"
+				positionX="center"
 				value={squares[4]}
 				whoseTurn={whoseTurn}
 				onChoice={handleChoice(4)}
 			/>
 			<Square
-				positionY="middle"
+				positionY="center"
 				positionX="right"
 				value={squares[5]}
 				whoseTurn={whoseTurn}
@@ -64,7 +64,7 @@ export function Grid({ squares, whoseTurn, onChoice }: GridProps) {
 			/>
 			<Square
 				positionY="bottom"
-				positionX="middle"
+				positionX="center"
 				value={squares[7]}
 				whoseTurn={whoseTurn}
 				onChoice={handleChoice(7)}

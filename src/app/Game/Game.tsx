@@ -2,36 +2,13 @@
 
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { usePrefersReducedMotion } from "@/hooks";
 import { Turn } from "@/types";
 import clsx from "clsx";
 import { useImmer } from "use-immer";
 import { Grid } from "./Grid";
+import { TurnIndicator } from "./TurnIndicator";
 import { WinLine, WinState } from "./WinLine";
-
-const x = (
-	<svg
-		viewBox="0 0 100 100"
-		width="90%"
-		strokeWidth={16}
-		className="stroke-black dark:stroke-white"
-	>
-		<g>
-			<line x1="0" y1="0" x2="100" y2="100" />
-			<line x1="100" y1="0" x2="0" y2="100" />
-		</g>
-	</svg>
-);
-
-const o = (
-	<svg
-		viewBox="0 0 100 100"
-		strokeWidth={16}
-		className="stroke-black dark:stroke-white"
-	>
-		<circle cx="50" cy="50" r="42" fill="none" />
-	</svg>
-);
 
 type GameStatus = WinState | "draw" | "playing";
 
@@ -81,17 +58,7 @@ export function Game() {
 
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
-			<span
-				className={clsx(
-					"flex items-center gap-1",
-					status !== "playing" ? "invisible" : "visible",
-				)}
-			>
-				<div className="inline-block h-4 w-4">
-					{whoseTurn !== "" && (whoseTurn === "x" ? x : o)}
-				</div>
-				{"Turn"}
-			</span>
+			<TurnIndicator whoseTurn={whoseTurn} />
 			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
 				{win && (
 					<WinLine
@@ -123,11 +90,11 @@ export function Game() {
 
 const winStates: Record<WinState, number[]> = {
 	Top: [0, 1, 2],
-	MiddleHorizontal: [3, 4, 5],
+	CenterHorizontal: [3, 4, 5],
 	Bottom: [6, 7, 8],
 
 	Left: [0, 3, 6],
-	MiddleVertical: [1, 4, 7],
+	CenterVertical: [1, 4, 7],
 	Right: [2, 5, 8],
 
 	// diagonal lines
