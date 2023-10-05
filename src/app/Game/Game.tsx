@@ -70,7 +70,7 @@ export function Game() {
 				className={clsx(
 					"flex basis-1/5 items-center sm:mt-0 sm:basis-auto",
 					winAnimationComplete || status === "draw"
-						? "animate-fade-in visible"
+						? "visible animate-fade-in"
 						: "invisible",
 				)}
 			>
