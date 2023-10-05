@@ -17,17 +17,22 @@ export type WinState =
 	| "TopRightBottomLeft";
 
 export interface WinLineProps {
+	animate: boolean;
 	winState: WinState;
 	onAnimationComplete: () => void;
 }
 
-export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
+export function WinLine({
+	animate,
+	winState,
+	onAnimationComplete,
+}: WinLineProps) {
 	const [dashCount, setDashCount] = useState(0);
 	const [lineLength, setLineLength] = useState<number | null>(null);
 	const lineRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
-		function updateLineLength() {
+		const updateLineLength = () => {
 			let lineLength = lineRef?.current?.getBoundingClientRect()?.width || null;
 			if (
 				winState === "TopLeftBottomRight" ||
@@ -36,7 +41,7 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 				lineLength = lineLength && lineLength * Math.sqrt(2);
 			}
 			setLineLength(lineLength);
-		}
+		};
 		updateLineLength();
 		window.addEventListener("resize", updateLineLength);
 		return () => window.removeEventListener("resize", updateLineLength);
@@ -47,7 +52,9 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 			dashCount == 0
 				? DASH_ANIMATION_START_DELAY_MS
 				: DASH_ANIMATION_INTERVAL_MS;
-		if (dashCount < FINAL_DASH_COUNT) {
+		if (!animate && dashCount < FINAL_DASH_COUNT) {
+			setDashCount(FINAL_DASH_COUNT);
+		} else if (dashCount < FINAL_DASH_COUNT) {
 			const timeout = setTimeout(() => {
 				setDashCount(dashCount + 1);
 			}, delay);
@@ -55,7 +62,7 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 		} else {
 			onAnimationComplete();
 		}
-	}, [dashCount, onAnimationComplete]);
+	}, [animate, dashCount, onAnimationComplete]);
 
 	let dashSize = 0;
 	let dashGapSize = 0;
@@ -85,7 +92,7 @@ export function WinLine({ winState, onAnimationComplete }: WinLineProps) {
 	return (
 		<div className="absolute h-full w-full" ref={lineRef}>
 			<div className={getWinLineClass(winState)}>
-				<div className="flex flex-col">{dashes}</div>
+				<div className="animate-fade-in flex flex-col">{dashes}</div>
 			</div>
 		</div>
 	);

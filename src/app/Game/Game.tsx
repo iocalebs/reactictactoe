@@ -1,12 +1,13 @@
 "use client";
 
-import { useImmer } from "use-immer";
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Turn } from "@/types";
+import clsx from "clsx";
+import { useImmer } from "use-immer";
 import { Grid } from "./Grid";
 import { WinLine, WinState } from "./WinLine";
-import clsx from "clsx";
 
 const x = (
 	<svg
@@ -45,6 +46,7 @@ const initialState = {
 export function Game() {
 	const [gameState, setGameState] = useImmer({ ...initialState });
 	const { first, status, squares, whoseTurn, winAnimationComplete } = gameState;
+	const prefersReducedMotion = usePrefersReducedMotion();
 
 	function handleChoice(square: number) {
 		if (status !== "playing" || squares[square] !== "") {
@@ -93,6 +95,7 @@ export function Game() {
 			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
 				{win && (
 					<WinLine
+						animate={!prefersReducedMotion}
 						winState={status}
 						onAnimationComplete={handleWinAnimationComplete}
 					/>
@@ -100,13 +103,12 @@ export function Game() {
 				<Grid squares={squares} whoseTurn={whoseTurn} onChoice={handleChoice} />
 			</div>
 			<div
-				className={
-					"flex basis-1/5 items-center transition-opacity duration-500 sm:mt-0 sm:basis-auto" +
-					(winAnimationComplete || status === "draw"
-						? " animate-pulse opacity-100  "
-						: " opacity-0")
-				}
-				style={{ animationDelay: "1s", animationDuration: "3s" }}
+				className={clsx(
+					"flex basis-1/5 items-center sm:mt-0 sm:basis-auto",
+					winAnimationComplete || status === "draw"
+						? "animate-fade-in visible"
+						: "invisible",
+				)}
 			>
 				<Button
 					icon={<IconReset className="h-8 w-8 sm:h-5 sm:w-5" />}
