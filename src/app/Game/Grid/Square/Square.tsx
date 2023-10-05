@@ -1,7 +1,7 @@
-import { clsx } from "clsx";
 import { Turn } from "@/types";
-import styles from "./Square.module.scss";
+import { clsx } from "clsx";
 import { useState } from "react";
+import styles from "./Square.module.scss";
 
 const x = (
 	<svg
@@ -68,21 +68,21 @@ export function Square({
 				positionX !== "left" && "border-l-4",
 				positionX !== "right" && "border-r-4",
 			)}
-			onClick={onChoice}
 		>
-			<div
-				onMouseEnter={() => setHover(true)}
-				onMouseLeave={() => setHover(false)}
-				role="button"
+			<button
 				className={clsx(
 					"flex h-full w-full items-center justify-center p-[15%]",
 					value == "x" && styles.X,
 					value == "o" && styles.O,
-					hoveringOpenSquare && "cursor-pointer opacity-10 dark:opacity-20",
+					hoveringOpenSquare && "opacity-10 dark:opacity-20",
+					!hoveringOpenSquare && "cursor-default",
 				)}
+				onClick={onChoice}
+				onMouseEnter={() => setHover(true)}
+				onMouseLeave={() => setHover(false)}
 			>
 				{squareContent}
-			</div>
+			</button>
 		</div>
 	);
 }
