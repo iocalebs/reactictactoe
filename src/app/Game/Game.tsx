@@ -82,7 +82,7 @@ export function Game() {
 			<span
 				className={clsx(
 					"flex items-center gap-1",
-					win ? "invisible" : "visible",
+					status !== "playing" ? "invisible" : "visible",
 				)}
 			>
 				<div className="inline-block h-4 w-4">
@@ -101,7 +101,7 @@ export function Game() {
 			</div>
 			<div
 				className={
-					"mt-16 transition-opacity duration-500 sm:mt-0" +
+					"flex basis-1/5 items-center transition-opacity duration-500 sm:mt-0 sm:basis-auto" +
 					(winAnimationComplete || status === "draw"
 						? " animate-pulse opacity-100  "
 						: " opacity-0")
