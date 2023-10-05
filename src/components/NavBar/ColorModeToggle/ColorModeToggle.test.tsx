@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { ColorModeToggle } from ".";
 
 describe("<ColorModeToggle />", () => {
-	test("light mode button enables light mode on click, then sets focus on dark mode button", () => {
+	it("enables light mode on light mode button click, then sets focus on dark mode button", () => {
 		const mockSetTheme = jest.fn();
 		window.__setColorMode = mockSetTheme;
 		render(<ColorModeToggle />);
@@ -19,7 +19,7 @@ describe("<ColorModeToggle />", () => {
 		expect(darkModeButton).toHaveFocus();
 	});
 
-	test("dark mode button enables dark mode on click, then sets focus on light mode button", () => {
+	it("enables dark mode on dark mode button click, then sets focus on light mode button", () => {
 		render(<ColorModeToggle />);
 		const mockSetTheme = jest.fn();
 		window.__setColorMode = mockSetTheme;

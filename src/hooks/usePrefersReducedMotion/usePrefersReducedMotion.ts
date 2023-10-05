@@ -14,7 +14,7 @@ export function usePrefersReducedMotion() {
 		return () => {
 			mediaQuery.removeEventListener("change", onPreferenceChange);
 		};
-	});
+	}, []);
 
 	return prefersReducedMotion;
 }

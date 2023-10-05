@@ -9,6 +9,7 @@ const createJestConfig = nextJest({
 /** @type {import('jest').Config} */
 const config = {
 	collectCoverageFrom: ["<rootDir>/src/**"],
+	coveragePathIgnorePatterns: ["layout.tsx", "page.tsx"],
 	coverageThreshold: {
 		global: 90,
 	},

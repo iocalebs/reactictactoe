@@ -2,6 +2,7 @@
 	"recommendations": [
 		"esbenp.prettier-vscode",
 		"editorconfig.editorconfig",
-		"bradlc.vscode-tailwindcss"
+		"bradlc.vscode-tailwindcss",
+		"orta.vscode-jest"
 	]
 }

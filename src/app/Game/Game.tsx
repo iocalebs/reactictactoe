@@ -26,9 +26,6 @@ export function Game() {
 	const prefersReducedMotion = usePrefersReducedMotion();
 
 	function handleChoice(square: number) {
-		if (status !== "playing" || squares[square] !== "") {
-			return;
-		}
 		setGameState((draft) => {
 			draft.squares[square] = whoseTurn;
 			draft.status = getGameStatus(draft.squares, whoseTurn);
