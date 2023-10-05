@@ -4,8 +4,13 @@ import styles from "./Square.module.scss";
 import { useState } from "react";
 
 const x = (
-	<svg viewBox="0 0 100 100" width="90%">
-		<g strokeWidth={8}>
+	<svg
+		viewBox="0 0 100 100"
+		width="90%"
+		strokeWidth={8}
+		className="stroke-black dark:stroke-white"
+	>
+		<g>
 			<line x1="0" y1="0" x2="100" y2="100" />
 			<line x1="100" y1="0" x2="0" y2="100" />
 		</g>
@@ -13,8 +18,12 @@ const x = (
 );
 
 const o = (
-	<svg viewBox="0 0 100 100">
-		<circle cx="50" cy="50" r="46" fill="none" strokeWidth={8} />
+	<svg
+		viewBox="0 0 100 100"
+		strokeWidth={8}
+		className="stroke-black dark:stroke-white"
+	>
+		<circle cx="50" cy="50" r="46" fill="none" />
 	</svg>
 );
 
@@ -53,7 +62,7 @@ export function Square({
 	return (
 		<div
 			className={clsx(
-				"flex aspect-square h-full w-full select-none justify-center border-gray-400 stroke-black dark:stroke-white",
+				"flex aspect-square h-full w-full select-none justify-center border-gray-400",
 				positionY !== "top" && "border-t-4",
 				positionY !== "bottom" && "border-b-4",
 				positionX !== "left" && "border-l-4",

@@ -1,12 +1,36 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
 import { Turn } from "@/types";
 import { Grid } from "./Grid";
 import { WinLine, WinState } from "./WinLine";
+import clsx from "clsx";
+
+const x = (
+	<svg
+		viewBox="0 0 100 100"
+		width="90%"
+		strokeWidth={16}
+		className="stroke-black dark:stroke-white"
+	>
+		<g>
+			<line x1="0" y1="0" x2="100" y2="100" />
+			<line x1="100" y1="0" x2="0" y2="100" />
+		</g>
+	</svg>
+);
+
+const o = (
+	<svg
+		viewBox="0 0 100 100"
+		strokeWidth={16}
+		className="stroke-black dark:stroke-white"
+	>
+		<circle cx="50" cy="50" r="42" fill="none" />
+	</svg>
+);
 
 type GameStatus = WinState | "draw" | "playing";
 
@@ -55,6 +79,17 @@ export function Game() {
 
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
+			<span
+				className={clsx(
+					"flex items-center gap-1",
+					win ? "invisible" : "visible",
+				)}
+			>
+				<div className="inline-block h-4 w-4">
+					{whoseTurn !== "" && (whoseTurn === "x" ? x : o)}
+				</div>
+				{"Turn"}
+			</span>
 			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
 				{win && (
 					<WinLine
@@ -77,7 +112,7 @@ export function Game() {
 					icon={<IconReset className="h-8 w-8 sm:h-5 sm:w-5" />}
 					onClick={reset}
 				>
-					Reset
+					Play again
 				</Button>
 			</div>
 		</div>
