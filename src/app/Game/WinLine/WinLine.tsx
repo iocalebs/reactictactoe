@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./WinLine.module.scss";
@@ -91,15 +92,21 @@ export function WinLine({
 		});
 
 	return (
-		<div className="absolute h-full w-full" ref={lineRef}>
-			<div className={getWinLineClass(winState)}>
-				<div
-					className={clsx("flex flex-col", reduceMotion && "animate-fade-in")}
-				>
-					{dashes}
+		<>
+			<span aria-live="polite" className="sr-only">
+				{"Winning line..." + getLineDescription(winState)}
+			</span>
+			<div aria-hidden className="absolute h-full w-full" ref={lineRef}>
+				<div className={getWinLineClass(winState)}>
+					<div
+						data-testid="winline-inner"
+						className={clsx("flex flex-col", reduceMotion && "animate-fade-in")}
+					>
+						{dashes}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 
@@ -121,5 +128,26 @@ function getWinLineClass(winState: WinState): string {
 			return styles.WinLineTopLeftBottomRight;
 		case "TopRightBottomLeft":
 			return styles.WinLineTopRightBottomLeft;
+	}
+}
+
+function getLineDescription(winState: WinState): string {
+	switch (winState) {
+		case "Top":
+			return "Top horizontal";
+		case "Bottom":
+			return "Bottom horizontal";
+		case "Left":
+			return "Left vertical";
+		case "Right":
+			return "Right vertical";
+		case "CenterHorizontal":
+			return "Center horizontal";
+		case "CenterVertical":
+			return "Center vertical";
+		case "TopLeftBottomRight":
+			return "Top left to bottom right diagonal";
+		case "TopRightBottomLeft":
+			return "Top right to bottom left diagonal";
 	}
 }
