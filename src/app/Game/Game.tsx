@@ -84,7 +84,7 @@ export function Game() {
 			<TurnIndicator whoseTurn={whoseTurn} />
 			<div
 				data-testid="grid"
-				className="relative flex w-full max-w-xl items-center justify-center"
+				className="relative flex aspect-square w-full max-w-xl items-center justify-center"
 			>
 				{winType && (
 					<WinLine
