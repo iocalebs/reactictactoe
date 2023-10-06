@@ -82,7 +82,10 @@ export function Game() {
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
 			<TurnIndicator whoseTurn={whoseTurn} />
-			<div className="relative mb-8 flex w-full max-w-xl items-center justify-center">
+			<div
+				data-testid="grid"
+				className="relative flex w-full max-w-xl items-center justify-center"
+			>
 				{winType && (
 					<WinLine
 						reduceMotion={prefersReducedMotion}
@@ -94,7 +97,7 @@ export function Game() {
 			</div>
 			<div
 				className={clsx(
-					"flex basis-1/5 items-center sm:mt-0 sm:basis-auto",
+					"mt-8 flex basis-1/5 items-center sm:basis-auto",
 					winAnimationComplete || status === "draw"
 						? "visible animate-fade-in"
 						: "invisible",

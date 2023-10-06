@@ -3,8 +3,11 @@ on:
   deployment_status:
 jobs:
   e2e-live:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
-    runs-on: ubuntu-latest
+    if:
+      github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+      ## Runs on Mac because Mac is currently what I use to generate the e2e test screenshots locally
+    ## Ideally I would be generating them in a Linux container but this is convenient for now
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

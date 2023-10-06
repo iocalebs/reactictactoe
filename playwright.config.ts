@@ -22,6 +22,14 @@ export default defineConfig({
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		baseURL: process.env.BASE_URL || LOCAL_BASE_URL,
 
+		contextOptions: {
+			reducedMotion: process.env.WITH_MOTION ? "no-preference" : "reduce",
+		},
+
+		launchOptions: {
+			slowMo: process.env.SLOWMO ? 500 : undefined,
+		},
+
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
 	},
