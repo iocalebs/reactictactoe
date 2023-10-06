@@ -21,6 +21,7 @@ const o = (
 	<svg
 		viewBox="0 0 100 100"
 		strokeWidth={8}
+		width="100%"
 		className="stroke-black dark:stroke-white"
 	>
 		<circle cx="50" cy="50" r="46" fill="none" />
