@@ -8,7 +8,7 @@ const DASH_GAP_FACTOR = 0.4; // length of the gap as a percentage of the dash le
 const DASH_ANIMATION_INTERVAL_MS = 60;
 const DASH_ANIMATION_START_DELAY_MS = 600;
 
-export type WinState =
+export type WinType =
 	| "Top"
 	| "Bottom"
 	| "Left"
@@ -20,13 +20,13 @@ export type WinState =
 
 export interface WinLineProps {
 	reduceMotion: boolean;
-	winState: WinState;
+	winType: WinType;
 	onAnimationComplete: () => void;
 }
 
 export function WinLine({
 	reduceMotion,
-	winState,
+	winType,
 	onAnimationComplete,
 }: WinLineProps) {
 	const [dashCount, setDashCount] = useState(0);
@@ -37,8 +37,8 @@ export function WinLine({
 		const updateLineLength = () => {
 			let lineLength = lineRef?.current?.getBoundingClientRect()?.width || null;
 			if (
-				winState === "TopLeftBottomRight" ||
-				winState === "TopRightBottomLeft"
+				winType === "TopLeftBottomRight" ||
+				winType === "TopRightBottomLeft"
 			) {
 				lineLength = lineLength && lineLength * Math.sqrt(2);
 			}
@@ -47,7 +47,7 @@ export function WinLine({
 		updateLineLength();
 		window.addEventListener("resize", updateLineLength);
 		return () => window.removeEventListener("resize", updateLineLength);
-	}, [winState]);
+	}, [winType]);
 
 	useEffect(() => {
 		const delay =
@@ -94,10 +94,10 @@ export function WinLine({
 	return (
 		<>
 			<span aria-live="polite" className="sr-only">
-				{"Winning line..." + getLineDescription(winState)}
+				{"Winning line: " + getLineDescription(winType)}
 			</span>
 			<div aria-hidden className="absolute h-full w-full" ref={lineRef}>
-				<div className={getWinLineClass(winState)}>
+				<div className={getWinLineClass(winType)}>
 					<div
 						data-testid="winline-inner"
 						className={clsx("flex flex-col", reduceMotion && "animate-fade-in")}
@@ -110,8 +110,8 @@ export function WinLine({
 	);
 }
 
-function getWinLineClass(winState: WinState): string {
-	switch (winState) {
+function getWinLineClass(winType: WinType): string {
+	switch (winType) {
 		case "Top":
 			return styles.WinLineTop;
 		case "Bottom":
@@ -131,8 +131,8 @@ function getWinLineClass(winState: WinState): string {
 	}
 }
 
-function getLineDescription(winState: WinState): string {
-	switch (winState) {
+function getLineDescription(winType: WinType): string {
+	switch (winType) {
 		case "Top":
 			return "Top horizontal";
 		case "Bottom":
