@@ -1,4 +1,5 @@
-/* istanbul ignore file */
+/* This component could probably be simplified by using the background property with linear-gradient */
+
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./WinLine.module.scss";
@@ -151,3 +152,4 @@ function getLineDescription(winType: WinType): string {
 			return "Top right to bottom left diagonal";
 	}
 }
+/* istanbul ignore file */

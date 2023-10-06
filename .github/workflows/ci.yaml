@@ -2,8 +2,8 @@ name: CI
 on: [push, pull_request]
 jobs:
   build:
-    ## Runs on Mac because Mac is currently what I use to generate the e2e test screenshots locally
-    ## Ideally I would be generating them in a Linux container but this is convenient for now
+    ## Runs on Mac so that e2e test screenshots are the same locally and in CI
+    ## Could run tests locally in an Ubuntu container but that's somewhat inconvenient
     runs-on: macos-latest
     steps:
       - name: Checkout

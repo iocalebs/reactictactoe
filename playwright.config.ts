@@ -39,6 +39,14 @@ export default defineConfig({
 		{
 			name: "chromium",
 			use: { ...devices["Desktop Chrome"] },
+			expect: {
+				/**
+				 * Workaround for Chromium screenshots being different by a few pixels in CI vs. local
+				 * Likely relates to tohttps://github.com/microsoft/playwright/issues/18827
+				 * If so, the WinLine component is the culprit
+				 */
+				toHaveScreenshot: { maxDiffPixels: 2 },
+			},
 		},
 
 		{
