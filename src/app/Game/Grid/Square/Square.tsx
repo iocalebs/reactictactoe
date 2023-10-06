@@ -74,7 +74,6 @@ export function Square({
 		>
 			<button
 				aria-label={ariaLabel(positionX, positionY, value)}
-				disabled={value !== "" || whoseTurn === ""}
 				aria-disabled={value !== "" || whoseTurn === ""}
 				className={clsx(
 					"flex h-full w-full items-center justify-center p-[15%]",
