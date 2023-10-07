@@ -4,7 +4,7 @@
 Run tests with `prefers-reduced-motion: no-preference` in slo-mo on a single browser:
 
 ```
- SLOWMO=true bunx playwright test gameplay --debug --project chromium
+ SLOWMO=true WITH_MOTION=true bunx playwright test gameplay --debug --project chromium
 ```
 
 ## What I learned from this exercise
