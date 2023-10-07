@@ -62,6 +62,8 @@ export function Square({
 		squareContent = value === "x" ? x : o;
 	}
 
+	const clickable = value === "" && whoseTurn !== "";
+
 	return (
 		<div
 			className={clsx(
@@ -74,12 +76,15 @@ export function Square({
 		>
 			<button
 				aria-label={ariaLabel(positionX, positionY, value)}
-				aria-disabled={value !== "" || whoseTurn === ""}
+				// We avoid setting `disabled` so that keyboards can focus on filled
+				// squares and screen readers can to read out their contents
+				aria-disabled={!clickable}
 				className={clsx(
 					"flex h-full w-full items-center justify-center p-[15%]",
 					value == "x" && styles.X,
 					value == "o" && styles.O,
 					hoveringOpenSquare && "opacity-10 dark:opacity-20",
+					!clickable && "cursor-default",
 				)}
 				onClick={onChoice}
 				onMouseEnter={() => setHover(true)}
