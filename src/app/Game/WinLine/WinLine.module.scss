@@ -1,45 +1,76 @@
-/* Taking into consideration margin around grid (2rem) and borders between cells (0.25rem each) */
-%WinLineVertical {
-	display: flex;
+%WinLine {
 	position: absolute;
-	justify-content: center;
+	opacity: 0;
+	animation: dashed-line 1s steps(10) 500ms forwards;
+	background: linear-gradient(
+		0deg,
+		rgb(239 68 68),
+		rgb(239 68 68) 70%,
+		transparent 70%,
+		transparent 100%
+	);
+	background-size: 100% 10%;
+	width: 0.5rem;
+	height: 100%;
 }
 
-%WinLineDiagonal {
-	@extend %WinLineVertical;
+%WinLineVertical {
+	@extend %WinLine;
 
-	top: calc(50% * (1 - sqrt(2)));
-	left: calc(50% * (1 - sqrt(2)));
-	width: calc(100% * sqrt(2));
-	height: calc(100% * sqrt(2));
+	margin-top: calc((-10% * 0.3)); // centers dashes in container
 }
 
 %WinLineHorizontal {
-	@extend %WinLineVertical;
+	@extend %WinLine;
 
 	transform: rotate(-90deg);
-	width: 100%;
-	height: 100%;
+	margin-left: calc((-10% * 0.3)); // centers dashes in container
+}
+
+%WinLineDiagonal {
+	@extend %WinLine;
+
+	height: calc(100% * sqrt(2));
+}
+
+@media (prefers-reduced-motion) {
+	.WinLine {
+		animation: fade-in 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+	}
+}
+
+@keyframes dashed-line {
+	0% {
+		opacity: 1;
+		clip-path: inset(0 0 100% 0);
+	}
+
+	100% {
+		opacity: 1;
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes fade-in {
+	to {
+		opacity: 1;
+	}
 }
 
 .WinLineCenterVertical {
 	@extend %WinLineVertical;
-
-	width: 100%;
 }
 
 .WinLineLeft {
 	@extend %WinLineVertical;
 
-	left: 2rem;
-	width: calc(33.33% - 1.5rem + 3px);
+	left: calc(16.67% + 1rem);
 }
 
 .WinLineRight {
 	@extend %WinLineVertical;
 
-	right: 2rem;
-	width: calc(33% - 1.5rem + 3px);
+	right: calc(16.67% + 1rem);
 }
 
 .WinLineCenterHorizontal {
@@ -49,22 +80,28 @@
 .WinLineTop {
 	@extend %WinLineHorizontal;
 
-	top: calc(-33.33% + 1.5rem - 3px);
+	top: calc(-33.33% + 1.25rem);
 }
 
 .WinLineBottom {
 	@extend %WinLineHorizontal;
 
-	bottom: calc(-33.33% + 1.5rem - 3px);
+	bottom: calc(-33.33% + 1.25rem);
 }
 
 .WinLineTopLeftBottomRight {
+	margin-top: calc((-10% * 0.3)); // centers dashes in container
+	margin-left: calc((-10% * 0.3)); // centers dashes in container
+
 	@extend %WinLineDiagonal;
 
 	transform: rotate(-45deg);
 }
 
 .WinLineTopRightBottomLeft {
+	margin-top: calc((-10% * 0.3)); // centers dashes in container
+	margin-right: calc((-10% * 0.3)); // centers dashes in container
+
 	@extend %WinLineDiagonal;
 
 	transform: rotate(45deg);

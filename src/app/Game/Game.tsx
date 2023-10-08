@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
-import { usePrefersReducedMotion } from "@/hooks";
 import { Player, Turn } from "@/types";
 import clsx from "clsx";
 import { useImmer } from "use-immer";
@@ -42,7 +41,6 @@ export function Game() {
 		winType,
 		winAnimationComplete,
 	} = gameState;
-	const prefersReducedMotion = usePrefersReducedMotion();
 
 	function handleChoice(square: number) {
 		if (status !== "playing" || squares[square] !== "") {
@@ -60,6 +58,7 @@ export function Game() {
 	}
 
 	function handleWinAnimationComplete() {
+		console.log("foo");
 		setGameState((draft) => {
 			draft.winAnimationComplete = true;
 		});
@@ -67,7 +66,6 @@ export function Game() {
 
 	function reset() {
 		const newFirst = first === "x" ? "o" : "x";
-		console.log(newFirst);
 		setGameState({
 			...initialState,
 			first: newFirst,
@@ -88,9 +86,8 @@ export function Game() {
 			>
 				{winType && (
 					<WinLine
-						reduceMotion={prefersReducedMotion}
 						winType={winType}
-						onAnimationComplete={handleWinAnimationComplete}
+						onAnimationEnd={handleWinAnimationComplete}
 					/>
 				)}
 				<Grid squares={squares} whoseTurn={whoseTurn} onChoice={handleChoice} />

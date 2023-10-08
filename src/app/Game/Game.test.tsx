@@ -1,4 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, fireEvent } from "@testing-library/react";
 import { Game } from ".";
 
 type SquarePosition =
@@ -157,14 +157,17 @@ describe("<Game />", () => {
 			expect(playAgainButton.parentElement).toHaveClass("invisible");
 		});
 
-		it("is visible when game ends in a win", () => {
+		it("is visible when game ends in a win after the win animation completes", () => {
 			render(<Game />);
+
+			makeMove("Northwest");
+			makeMove("West");
+			makeMove("North");
+			makeMove("Center");
+			makeMove("Northeast");
+			const winLine = screen.getByTestId("win-line");
 			act(() => {
-				screen.getByRole("button", { name: /Northwest square/ }).click(); // X
-				screen.getByRole("button", { name: /West square/ }).click(); // O
-				screen.getByRole("button", { name: /North square/ }).click(); // X
-				screen.getByRole("button", { name: /Center square/ }).click(); // O
-				screen.getByRole("button", { name: /Northeast square/ }).click(); // X wins
+				fireEvent.animationEnd(winLine);
 			});
 			const playAgainButton = screen.getByRole("button", {
 				name: /play again/i,
