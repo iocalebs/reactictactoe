@@ -13,3 +13,4 @@ Run tests with `prefers-reduced-motion: no-preference` in slo-mo on a single bro
 - Aiming for 100% unit test code coverage makes very little sense for React projects
 - Always make sure to set dependencies in `useEffect`, or set dependencies as `[]` to make code run only once
 - Dark mode toggles are generally more trouble than they're worth
+- Getting code coverage for e2e tests is hard. I was able to get _some_ coverage set up in the `e2e-test-coverage` branch but the results don't seem entirely accurate.
