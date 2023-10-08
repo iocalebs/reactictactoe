@@ -58,7 +58,6 @@ export function Game() {
 	}
 
 	function handleWinAnimationComplete() {
-		console.log("foo");
 		setGameState((draft) => {
 			draft.winAnimationComplete = true;
 		});
