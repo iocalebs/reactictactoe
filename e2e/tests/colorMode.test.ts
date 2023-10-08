@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../fixtures/baseFixtures";
 
 test("light mode appearance", async ({ page }) => {
 	await page.emulateMedia({ colorScheme: "light" });
