@@ -1,5 +1,21 @@
 import { test, expect } from "@playwright/test";
 
+test("light mode appearance", async ({ page }) => {
+	await page.emulateMedia({ colorScheme: "light" });
+	await page.goto("/");
+	await page.getByRole("button", { name: /northwest square/i }).click();
+	await page.getByRole("button", { name: /north square/i }).click();
+	await expect(page).toHaveScreenshot("light-mode.png");
+});
+
+test("dark mode appearance", async ({ page }) => {
+	await page.emulateMedia({ colorScheme: "dark" });
+	await page.goto("/");
+	await page.getByRole("button", { name: /southeast square/i }).click();
+	await page.getByRole("button", { name: /center square/i }).click();
+	await expect(page).toHaveScreenshot("dark-mode.png");
+});
+
 test("defaults to light mode if system preference set to light mode", async ({
 	page,
 }) => {
