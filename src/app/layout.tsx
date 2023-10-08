@@ -22,11 +22,11 @@ export default function RootLayout({
 			<body
 				className={clsx(
 					inter.className,
-					"flex flex-col bg-neutral-200 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200",
+					"flex h-screen flex-col bg-neutral-200 pb-16 text-neutral-900 transition-colors dark:bg-neutral-900 dark:text-neutral-200",
 				)}
 			>
 				<NavBar />
-				<main className="mx-8">{children}</main>
+				<main className="mx-8 grow">{children}</main>
 			</body>
 		</html>
 	);

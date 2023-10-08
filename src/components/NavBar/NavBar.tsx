@@ -6,7 +6,7 @@ export function NavBar() {
 	return (
 		<>
 			<ColorModeScript />
-			<nav className="mb-4">
+			<nav>
 				<div className="flex justify-end gap-2 px-4 py-2">
 					<ColorModeToggle />
 					<a

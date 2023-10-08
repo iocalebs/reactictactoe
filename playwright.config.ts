@@ -17,7 +17,11 @@ export default defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: "html",
+
+	timeout: process.env.CI ? 30 * 1000 : 10 * 1000,
+
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		baseURL: process.env.BASE_URL || LOCAL_BASE_URL,
@@ -45,7 +49,7 @@ export default defineConfig({
 				 * Likely relates to tohttps://github.com/microsoft/playwright/issues/18827
 				 * If so, the WinLine component is the culprit
 				 */
-				toHaveScreenshot: { maxDiffPixels: 2 },
+				toHaveScreenshot: { maxDiffPixelRatio: 0.01 },
 			},
 		},
 

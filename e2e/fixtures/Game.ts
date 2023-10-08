@@ -12,10 +12,14 @@ type SquarePosition =
 	| "Southeast";
 
 export class Game {
+	public readonly area: Locator;
 	public readonly grid: Locator;
+	public readonly playAgainButton: Locator;
 
 	constructor(public readonly page: Page) {
-		this.grid = page.getByTestId("grid");
+		this.area = page.locator("main");
+		this.grid = page.getByTestId("game-grid");
+		this.playAgainButton = page.getByRole("button", { name: /play again/i });
 	}
 
 	async goto() {
@@ -23,8 +27,12 @@ export class Game {
 	}
 
 	async move(squarePosition: SquarePosition) {
-		await this.page
-			.getByRole("button", { name: new RegExp(squarePosition + " ") })
-			.click();
+		await this.getSquare(squarePosition).click();
+	}
+
+	getSquare(squarePosition: SquarePosition): Locator {
+		return this.page.getByRole("button", {
+			name: new RegExp(squarePosition + " "),
+		});
 	}
 }
