@@ -1,3 +1,6 @@
 export function HelloWorld() {
-	return <div></div>;
+	if (true == true) {
+		const foo = "bar";
+	}
+	return <div>Hello world</div>;
 }
