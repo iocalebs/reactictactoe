@@ -102,11 +102,13 @@ test.describe("'play again' button", () => {
 
 test.describe("screenshots", () => {
 	test("initial board - X's turn", async ({ game }) => {
+		await expect(game.page.getByText(/X's turn/)).toBeVisible();
 		await expect(game.area).toHaveScreenshot("initital.png");
 	});
 
 	test("first move made - O's turn", async ({ game }) => {
 		await game.move("North");
+		await expect(game.page.getByText(/O's turn/)).toBeVisible();
 		await expect(game.area).toHaveScreenshot("first-move.png");
 	});
 
@@ -123,6 +125,7 @@ test.describe("screenshots", () => {
 
 		await expect(game.playAgainButton).toBeVisible();
 
+		await expect(game.page.getByText(/draw/i)).toBeVisible();
 		await expect(game.area).toHaveScreenshot("draw.png");
 	});
 
@@ -133,10 +136,12 @@ test.describe("screenshots", () => {
 		await game.move("Center");
 		await game.move("Southwest");
 
+		await expect(game.page.getByText(/x wins/i)).toBeVisible();
+		await expect(game.page.getByText(/left vertical/i)).toBeVisible();
 		await expect(game.grid).toHaveScreenshot("win-left-vertical.png");
 	});
 
-	test("O wins via middle vertical", async ({ game }) => {
+	test("O wins via center vertical", async ({ game }) => {
 		await game.move("Northwest");
 		await game.move("North");
 		await game.move("West");
@@ -144,7 +149,9 @@ test.describe("screenshots", () => {
 		await game.move("Southeast");
 		await game.move("South");
 
-		await expect(game.grid).toHaveScreenshot("win-middle-vertical.png");
+		await expect(game.page.getByText(/o wins/i)).toBeVisible();
+		await expect(game.page.getByText(/center vertical/i)).toBeVisible();
+		await expect(game.grid).toHaveScreenshot("win-center-vertical.png");
 	});
 
 	test("X wins via right vertical", async ({ game }) => {
@@ -154,6 +161,8 @@ test.describe("screenshots", () => {
 		await game.move("Center");
 		await game.move("Southeast");
 
+		await expect(game.page.getByText(/x wins/i)).toBeVisible();
+		await expect(game.page.getByText(/right vertical/i)).toBeVisible();
 		await expect(game.grid).toHaveScreenshot("win-right-vertical.png");
 	});
 
@@ -164,10 +173,12 @@ test.describe("screenshots", () => {
 		await game.move("Center");
 		await game.move("Northeast");
 
+		await expect(game.page.getByText(/x wins/i)).toBeVisible();
+		await expect(game.page.getByText(/top horizontal/i)).toBeVisible();
 		await expect(game.grid).toHaveScreenshot("win-top-horizontal.png");
 	});
 
-	test("O wins via middle horizontal", async ({ game }) => {
+	test("O wins via center horizontal", async ({ game }) => {
 		await game.move("Northwest");
 		await game.move("West");
 		await game.move("North");
@@ -175,6 +186,8 @@ test.describe("screenshots", () => {
 		await game.move("Southeast");
 		await game.move("East");
 
+		await expect(game.page.getByText(/o wins/i)).toBeVisible();
+		await expect(game.page.getByText(/center horizontal/i)).toBeVisible();
 		await expect(game.grid).toHaveScreenshot("win-center-horizontal.png");
 	});
 
@@ -185,6 +198,8 @@ test.describe("screenshots", () => {
 		await game.move("Center");
 		await game.move("South");
 
+		await expect(game.page.getByText(/x wins/i)).toBeVisible();
+		await expect(game.page.getByText(/bottom horizontal/i)).toBeVisible();
 		await expect(game.grid).toHaveScreenshot("win-bottom-horizontal.png");
 	});
 
@@ -196,7 +211,9 @@ test.describe("screenshots", () => {
 		await game.move("Southwest");
 		await game.move("Northwest");
 
-		await expect(game.grid).toHaveScreenshot("top-left-diagonal.png");
+		await expect(game.page.getByText(/o wins/i)).toBeVisible();
+		await expect(game.page.getByText(/diagonal/i)).toBeVisible();
+		await expect(game.grid).toHaveScreenshot("win-top-left-diagonal.png");
 	});
 
 	test("X wins via top right to bottom left diagonal", async ({ game }) => {
@@ -206,6 +223,8 @@ test.describe("screenshots", () => {
 		await game.move("South");
 		await game.move("Southwest");
 
-		await expect(game.grid).toHaveScreenshot("top-right-diagonal.png");
+		await expect(game.page.getByText(/x wins/i)).toBeVisible();
+		await expect(game.page.getByText(/diagonal/i)).toBeVisible();
+		await expect(game.grid).toHaveScreenshot("win-top-right-diagonal.png");
 	});
 });
