@@ -1,4 +1,4 @@
-import { Turn } from "@/types";
+import { type SquarePosition, type Turn } from "@/types";
 import { clsx } from "clsx";
 import { useState } from "react";
 import styles from "./Square.module.scss";
@@ -28,120 +28,63 @@ const o = (
 	</svg>
 );
 
-type PositionX = "left" | "center" | "right";
-type PositionY = "top" | "center" | "bottom";
-
 export interface SquareProps {
+	position: SquarePosition;
 	whoseTurn: Turn;
 	value: Turn;
-	positionX: PositionX;
-	positionY: PositionY;
-	borderTop?: boolean;
-	borderRight?: boolean;
-	borderLeft?: boolean;
-	borderBottom?: boolean;
 	onChoice: () => void;
 }
 export function Square({
-	positionX,
-	positionY,
+	position,
 	whoseTurn,
-	value,
+	value: squareValue,
 	onChoice,
 }: SquareProps) {
 	const [hover, setHover] = useState(false);
 
-	const hoveringOpenSquare = hover && whoseTurn !== "" && value == "";
+	const openSquare = whoseTurn !== "" && squareValue === "";
+	const hoveringOpenSquare = hover && openSquare;
 
 	let squareContent;
 	if (hoveringOpenSquare) {
 		squareContent = whoseTurn === "x" ? x : o;
-	} else if (value == "") {
-		squareContent = "";
+	} else if (squareValue !== "") {
+		squareContent = squareValue === "x" ? x : o;
 	} else {
-		squareContent = value === "x" ? x : o;
+		squareContent = "";
 	}
 
-	const clickable = value === "" && whoseTurn !== "";
+	const squareValueLabel = squareValue === "" ? "Empty" : squareValue;
+	const ariaLabel = `${position} square... ${squareValueLabel}`;
 
 	return (
 		<div
 			className={clsx(
 				"flex aspect-square h-full w-full select-none justify-center border-gray-400",
-				positionY !== "top" && "border-t-4",
-				positionY !== "bottom" && "border-b-4",
-				positionX !== "left" && "border-l-4",
-				positionX !== "right" && "border-r-4",
+				!position.match(/north/i) && "border-t-4",
+				!position.match(/east/i) && "border-r-4",
+				!position.match(/south/i) && "border-b-4",
+				!position.match(/west/i) && "border-l-4",
 			)}
 		>
 			<button
-				aria-label={ariaLabel(positionX, positionY, value)}
+				aria-label={ariaLabel}
 				// We avoid setting `disabled` so that keyboards can focus on filled
 				// squares and screen readers can to read out their contents
-				aria-disabled={!clickable}
+				aria-disabled={!openSquare}
 				className={clsx(
 					"flex h-full w-full items-center justify-center p-[15%]",
-					value == "x" && styles.X,
-					value == "o" && styles.O,
+					squareValue == "x" && styles.X,
+					squareValue == "o" && styles.O,
 					hoveringOpenSquare && "opacity-10 dark:opacity-20",
-					!clickable && "cursor-default",
+					!openSquare && "cursor-default",
 				)}
-				onClick={onChoice}
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}
+				onClick={onChoice}
 			>
 				{squareContent}
 			</button>
 		</div>
 	);
-}
-
-function ariaLabel(positionX: PositionX, positionY: PositionY, value: Turn) {
-	return `
-		${positionLabel(positionX, positionY)} square...
-		${squareStateLabel(value)}...
-	`;
-}
-
-function positionLabel(positionX: PositionX, positionY: PositionY): string {
-	switch (positionY) {
-		case "top": {
-			switch (positionX) {
-				case "left":
-					return "Northwest";
-				case "center":
-					return "North";
-				case "right":
-					return "Northeast";
-			}
-		}
-		case "center": {
-			switch (positionX) {
-				case "left":
-					return "West";
-				case "center":
-					return "Center";
-				case "right":
-					return "East";
-			}
-		}
-		case "bottom": {
-			switch (positionX) {
-				case "left":
-					return "Southwest";
-				case "center":
-					return "South";
-				case "right":
-					return "Southeast";
-			}
-		}
-	}
-}
-
-function squareStateLabel(value: Turn): string {
-	if (value === "") {
-		return "Empty";
-	} else {
-		return value;
-	}
 }

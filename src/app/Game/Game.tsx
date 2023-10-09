@@ -2,17 +2,17 @@
 
 import { Button } from "@/components/Button";
 import { IconReset } from "@/components/Icon";
-import { Player, Turn } from "@/types";
 import clsx from "clsx";
 import { useImmer } from "use-immer";
 import { Grid } from "./Grid";
 import { TurnIndicator } from "./TurnIndicator";
 import { WinLine, WinType } from "./WinLine";
+import { Player, Turn, SquarePosition, SquareValues } from "@/types";
 
 type GameStatus = "won" | "draw" | "playing";
 type GameState = {
 	first: Player;
-	squares: Turn[];
+	squares: Record<SquarePosition, Turn>;
 	status: GameStatus;
 	whoseTurn: Turn;
 	winner?: Player;
@@ -22,7 +22,17 @@ type GameState = {
 
 const initialState: GameState = {
 	first: "x",
-	squares: Array(9).fill(""),
+	squares: {
+		Northwest: "",
+		North: "",
+		Northeast: "",
+		West: "",
+		Center: "",
+		East: "",
+		Southwest: "",
+		South: "",
+		Southeast: "",
+	},
 	status: "playing",
 	whoseTurn: "x",
 	winner: undefined,
@@ -42,12 +52,12 @@ export function Game() {
 		winAnimationComplete,
 	} = gameState;
 
-	function handleChoice(square: number) {
-		if (status !== "playing" || squares[square] !== "") {
+	function handleChoice(squarePosition: SquarePosition) {
+		if (status !== "playing" || squares[squarePosition] !== "") {
 			return;
 		}
 		setGameState((draft) => {
-			draft.squares[square] = whoseTurn;
+			draft.squares[squarePosition] = whoseTurn;
 			[draft.status, draft.winType] = getGameStatus(draft.squares, whoseTurn);
 			draft.whoseTurn =
 				draft.status !== "playing" ? "" : whoseTurn === "x" ? "o" : "x";
@@ -115,29 +125,33 @@ export function Game() {
 	);
 }
 
-const winStates: Record<WinType, number[]> = {
-	Top: [0, 1, 2],
-	CenterHorizontal: [3, 4, 5],
-	Bottom: [6, 7, 8],
+const winStates: Record<WinType, SquarePosition[]> = {
+	Top: ["Northwest", "North", "Northeast"],
+	CenterHorizontal: ["West", "Center", "East"],
+	Bottom: ["Southwest", "South", "Southeast"],
 
-	Left: [0, 3, 6],
-	CenterVertical: [1, 4, 7],
-	Right: [2, 5, 8],
+	Left: ["Northwest", "West", "Southwest"],
+	CenterVertical: ["North", "Center", "South"],
+	Right: ["Northeast", "East", "Southeast"],
 
-	TopLeftBottomRight: [0, 4, 8],
-	TopRightBottomLeft: [2, 4, 6],
+	TopLeftBottomRight: ["Northwest", "Center", "Southeast"],
+	TopRightBottomLeft: ["Northeast", "Center", "Southwest"],
 };
 
 function getGameStatus(
-	currentSquares: Array<Player | "">,
+	currentSquares: SquareValues,
 	whoseTurn: Player | "",
 ): [GameStatus, WinType?] {
 	const winState = Object.entries(winStates).find(([_, winStateSquares]) => {
-		return winStateSquares.every((i) => currentSquares[i] == whoseTurn);
+		return winStateSquares.every(
+			(squarePosition) => currentSquares[squarePosition] == whoseTurn,
+		);
 	});
 	if (winState) {
 		return ["won", winState[0] as WinType];
 	}
-	const allSquaresFilled = currentSquares.every((square) => square !== "");
+	const allSquaresFilled = Object.values(currentSquares).every(
+		(square) => square !== "",
+	);
 	return [allSquaresFilled ? "draw" : "playing"];
 }

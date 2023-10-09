@@ -1,17 +1,7 @@
+import { SquarePosition } from "@/types";
 import { Locator, Page } from "@playwright/test";
 
-type SquarePosition =
-	| "Northwest"
-	| "North"
-	| "Northeast"
-	| "West"
-	| "Center"
-	| "East"
-	| "Southwest"
-	| "South"
-	| "Southeast";
-
-export class Game {
+export class GameFixture {
 	public readonly area: Locator;
 	public readonly grid: Locator;
 	public readonly playAgainButton: Locator;

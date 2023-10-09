@@ -1,16 +1,6 @@
 import { render, screen, act, fireEvent } from "@testing-library/react";
+import { SquarePosition } from "@/types";
 import { Game } from ".";
-
-type SquarePosition =
-	| "Northwest"
-	| "North"
-	| "Northeast"
-	| "West"
-	| "Center"
-	| "East"
-	| "Southwest"
-	| "South"
-	| "Southeast";
 
 function makeMove(squarePosition: SquarePosition) {
 	act(() => {

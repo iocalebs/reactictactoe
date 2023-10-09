@@ -1,9 +1,9 @@
 import { test as base, Page, expect } from "@playwright/test";
-import { Game } from "../fixtures/Game";
+import { GameFixture } from "../fixtures/gameFixture";
 
-const test = base.extend<{ game: Game }>({
+const test = base.extend<{ game: GameFixture }>({
 	game: async ({ page }, use) => {
-		const game = new Game(page);
+		const game = new GameFixture(page);
 		await game.goto();
 		await use(game);
 	},

@@ -5,8 +5,7 @@ describe("<Square />", () => {
 	it("shows a shadow of an X when hovering over an empty square", () => {
 		render(
 			<Square
-				positionX="left"
-				positionY="top"
+				position="Northwest"
 				whoseTurn="x"
 				value=""
 				onChoice={() => {}}
@@ -20,8 +19,7 @@ describe("<Square />", () => {
 	it("shows a shadow of an O when hovering over an empty square", () => {
 		render(
 			<Square
-				positionX="left"
-				positionY="top"
+				position="Southeast"
 				whoseTurn="o"
 				value=""
 				onChoice={() => {}}
