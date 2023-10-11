@@ -1,4 +1,4 @@
-import { SquarePosition } from "@/types";
+import { type SquarePosition } from "@/redux/slices/gameSlice";
 import { Locator, Page } from "@playwright/test";
 
 export class GameFixture {

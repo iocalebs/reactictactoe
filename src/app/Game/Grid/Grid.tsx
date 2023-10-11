@@ -6,7 +6,7 @@ import {
 	type SquarePosition,
 	SquareValues,
 	Turn,
-} from "@/types";
+} from "@/redux/slices/gameSlice";
 
 export interface GridProps {
 	squares: SquareValues;
