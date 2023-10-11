@@ -1,15 +1,6 @@
 import clsx from "clsx";
 import styles from "./WinLine.module.scss";
-
-export type WinType =
-	| "Top"
-	| "Bottom"
-	| "Left"
-	| "Right"
-	| "CenterVertical"
-	| "CenterHorizontal"
-	| "TopLeftBottomRight"
-	| "TopRightBottomLeft";
+import { WinType } from "@/redux/slices/gameSlice";
 
 export interface WinLineProps {
 	winType: WinType;

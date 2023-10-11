@@ -1,4 +1,4 @@
-import { Turn } from "@/types";
+import { Turn } from "@/redux/slices/gameSlice";
 import clsx from "clsx";
 
 const x = (

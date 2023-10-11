@@ -1,4 +1,4 @@
-import { type SquarePosition, type Turn } from "@/types";
+import { type SquarePosition, type Turn } from "@/redux/slices/gameSlice";
 import { clsx } from "clsx";
 import { useState } from "react";
 import styles from "./Square.module.scss";

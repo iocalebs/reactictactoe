@@ -1,5 +1,6 @@
-import { render, screen, act, fireEvent } from "@testing-library/react";
-import { SquarePosition } from "@/types";
+import { screen, act, fireEvent } from "@testing-library/react";
+import { renderWithProviders } from "@/testUtils";
+import { SquarePosition } from "@/redux/slices/gameSlice";
 import { Game } from ".";
 
 function makeMove(squarePosition: SquarePosition) {
@@ -20,7 +21,7 @@ describe("<Game />", () => {
 	});
 
 	it("starts with a blank grid and grants the first turn to X", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		const emptySpaces = screen.getAllByRole("button", {
 			name: /square(.*)empty/i,
@@ -30,7 +31,7 @@ describe("<Game />", () => {
 	});
 
 	it("fills a selected square when empty on selection", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Northwest");
 
@@ -45,7 +46,7 @@ describe("<Game />", () => {
 	});
 
 	it("changes turns once an empty square is selected", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Northeast");
 
@@ -54,7 +55,7 @@ describe("<Game />", () => {
 	});
 
 	it("does not change the turn if the selected square has already been chosen", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Northeast");
 		makeMove("Northeast");
@@ -64,7 +65,7 @@ describe("<Game />", () => {
 	});
 
 	it("announces the winning line when the game is won", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Northwest");
 		makeMove("Southwest");
@@ -79,7 +80,7 @@ describe("<Game />", () => {
 	});
 
 	it("announces X as the winner when the game is won by X", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Southwest");
 		makeMove("West");
@@ -91,7 +92,7 @@ describe("<Game />", () => {
 	});
 
 	it("announces O as the winner when the game is won by O", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("East");
 		makeMove("Northwest");
@@ -104,7 +105,7 @@ describe("<Game />", () => {
 	});
 
 	it("announces a draw when the game ends in a tie", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("Southwest");
 		makeMove("Center");
@@ -120,7 +121,7 @@ describe("<Game />", () => {
 	});
 
 	it("allows no further moves when the game is won", () => {
-		render(<Game />);
+		renderWithProviders(<Game />);
 
 		makeMove("West");
 		makeMove("North");
@@ -138,7 +139,7 @@ describe("<Game />", () => {
 
 	describe("Play Again button", () => {
 		it("is hidden when game is in progress", () => {
-			render(<Game />);
+			renderWithProviders(<Game />);
 
 			const playAgainButton = screen.getByRole("button", {
 				name: /play again/i,
@@ -148,7 +149,7 @@ describe("<Game />", () => {
 		});
 
 		it("is visible when game ends in a win after the win animation completes", () => {
-			render(<Game />);
+			renderWithProviders(<Game />);
 
 			makeMove("Northwest");
 			makeMove("West");
@@ -166,7 +167,7 @@ describe("<Game />", () => {
 		});
 
 		it("is visible when game ends in a draw", () => {
-			render(<Game />);
+			renderWithProviders(<Game />);
 
 			makeMove("Northwest");
 			makeMove("North");
@@ -185,7 +186,7 @@ describe("<Game />", () => {
 		});
 
 		it("resets the board when clicked and gives the first turn to O when X started last round", () => {
-			render(<Game />);
+			renderWithProviders(<Game />);
 
 			makeMove("Northwest");
 			makeMove("West");
@@ -208,7 +209,7 @@ describe("<Game />", () => {
 		});
 
 		it("resets the board when clicked and gives the first turn to X when O started last round", () => {
-			render(<Game />);
+			renderWithProviders(<Game />);
 
 			makeMove("Northwest");
 			makeMove("West");
