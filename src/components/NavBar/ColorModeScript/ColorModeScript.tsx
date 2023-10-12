@@ -25,23 +25,27 @@ export function ColorModeScript() {
 							document.documentElement.classList.remove("dark");
 						}
 					}
-					function setAppColorMode(colorMode) {
+
+					var appColorMode;
+					var lastSystemColorMode;
+
+					function updateAppColorMode(colorMode) {
+						appColorMode = colorMode;
 						setColorMode(colorMode);
 						try {
 							localStorage.setItem("appColorMode", colorMode);
 						} catch (err) {}
 					}
-					function setSystemColorMode(colorMode) {
-						setAppColorMode(colorMode);
+					function updateSystemColorMode(colorMode) {
+						lastSystemColorMode = colorMode
+						updateAppColorMode(colorMode);
 						try {
 							localStorage.setItem("lastSystemColorMode", systemColorMode);
 						} catch (err) {}
 					}
 
-					window.__setColorMode = setAppColorMode
+					window.__setColorMode = updateAppColorMode
 
-					var appColorMode;
-					var lastSystemColorMode;
 					try {
 						appColorMode = localStorage.getItem("appColorMode");
 						lastSystemColorMode = localStorage.getItem("lastSystemColorMode");
@@ -51,13 +55,30 @@ export function ColorModeScript() {
 					var systemColorMode = darkQuery.matches ? "dark" : "light";
 
 					if (!appColorMode || (lastSystemColorMode && lastSystemColorMode !== systemColorMode)) {
-						setSystemColorMode(systemColorMode);
+						updateSystemColorMode(systemColorMode);
 					} else {
-						setAppColorMode(appColorMode);
+						updateAppColorMode(appColorMode);
 					}
 
+					var afterPrint = false;
 					darkQuery.addEventListener("change", function (e) {
-						setSystemColorMode(e.matches ? "dark" : "light");
+						var printing = window.matchMedia("print").matches;
+						if (afterPrint || printing) {
+							afterPrint = printing;
+							return;
+						}
+						updateSystemColorMode(e.matches ? "dark" : "light");
+					});
+
+					var appColorModeBeforePrint;
+					window.addEventListener("beforeprint", function (e) {
+						setColorMode("light");
+						appColorModeBeforePrint = appColorMode
+					});
+					window.addEventListener("afterprint", function (e) {
+						if (appColorModeBeforePrint === "dark") {
+							setColorMode("dark");
+						}
 					});
 				})();
 			`,
