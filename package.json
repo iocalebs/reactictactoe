@@ -2,6 +2,7 @@
 	"name": "quickstart-nextjs",
 	"version": "0.1.0",
 	"private": true,
+	"packageManager": "pnpm@10.15.1",
 	"scripts": {
 		"build": "next build",
 		"ci": "pnpm lint && next build && jest --coverage",
