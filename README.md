@@ -1,10 +1,20 @@
 ![CI Badge](https://github.com/castdin/reactic-tac-toe/actions/workflows/ci.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/castdin/reactic-tac-toe/graph/badge.svg?token=H0N7I73Y32)](https://codecov.io/gh/castdin/reactic-tac-toe)
 
-Run tests with `prefers-reduced-motion: no-preference` in slo-mo on a single browser:
+## Running e2e tests
+
+Running tests with `prefers-reduced-motion: no-preference` in slo-mo on a single browser:
 
 ```
- SLOWMO=true WITH_MOTION=true bunx playwright test gameplay --debug --project chromium
+pnpm install
+```
+
+```
+pnpm exec playwright install
+```
+
+```
+SLOWMO=true WITH_MOTION=true pnpm playwright test gameplay --debug --project chromium
 ```
 
 ## What I learned from this exercise

@@ -4,9 +4,9 @@
 	"private": true,
 	"scripts": {
 		"build": "next build",
-		"ci": "bun lint && next build && jest --coverage",
+		"ci": "pnpm lint && next build && jest --coverage",
 		"dev": "next dev",
-		"e2e": "bun playwright test",
+		"e2e": "pnpm playwright test",
 		"eslint": "next lint",
 		"lint": "prettier --check . && stylelint \"**/*.{css,scss}\" && next lint",
 		"prettier": "prettier --write .",
