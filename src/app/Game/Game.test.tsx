@@ -13,7 +13,7 @@ function makeMove(squarePosition: SquarePosition) {
 
 describe("<Game />", () => {
 	beforeEach(() => {
-		window.matchMedia = jest.fn().mockImplementation((query) => ({
+		window.matchMedia = jest.fn().mockImplementation(() => ({
 			matches: true,
 			addEventListener: jest.fn(),
 			removeEventListener: jest.fn(),

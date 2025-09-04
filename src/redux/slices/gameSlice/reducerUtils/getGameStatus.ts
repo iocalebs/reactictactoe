@@ -23,7 +23,7 @@ export function getGameStatus(
 	currentSquares: SquareValues,
 	whoseTurn: Player | "",
 ): [GameStatus, WinType?] {
-	const winState = Object.entries(winStates).find(([_, winStateSquares]) => {
+	const winState = Object.entries(winStates).find(([, winStateSquares]) => {
 		return winStateSquares.every(
 			(squarePosition) => currentSquares[squarePosition] == whoseTurn,
 		);

@@ -12,7 +12,7 @@ import { useState } from "react";
 
 export function Game() {
 	const dispatch = useDispatch();
-	const { first, status, squares, whoseTurn, winner, winType } = useSelector(
+	const { status, squares, whoseTurn, winner, winType } = useSelector(
 		(state) => state.game,
 	);
 	const [winAnimationComplete, setWinAnimationComplete] = useState(false);
