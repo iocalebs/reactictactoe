@@ -48,7 +48,7 @@ export function Game() {
 				className={clsx(
 					"mt-8 flex basis-1/5 items-center sm:basis-auto",
 					winAnimationComplete || status === "draw"
-						? "visible animate-fade-in"
+						? "animate-fade-in visible"
 						: "invisible",
 				)}
 			>

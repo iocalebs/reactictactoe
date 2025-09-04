@@ -60,7 +60,7 @@ export function Square({
 	return (
 		<div
 			className={clsx(
-				"flex aspect-square h-full w-full select-none justify-center border-gray-400",
+				"flex aspect-square h-full w-full justify-center border-gray-400 select-none",
 				!position.match(/north/i) && "border-t-4",
 				!position.match(/east/i) && "border-r-4",
 				!position.match(/south/i) && "border-b-4",
